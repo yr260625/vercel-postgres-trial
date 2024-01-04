@@ -10,6 +10,26 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "eslintConfig": {
+    "extends": [
+      "next",
+      "plugin:import/recommended",
+      "plugin:import/warnings",
+      "prettier"
+    ],
+    "rules": {
+      "import/order": [
+        "error",
+        {
+          "alphabetize": {
+            "order": "asc"
+          }
+        }
+      ],
+      "import/no-unresolved": "off",
+      "no-unused-vars": "off"
+    }
+  },
   "dependencies": {
     "@types/ms": "^0.7.32",
     "@types/node": "20.8.3",
