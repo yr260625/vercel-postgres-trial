@@ -7,7 +7,7 @@ export const PageLayout: FC<{ children: ReactNode }> = memo(
     return (
       <div className="relative min-h-[100vh]">
         <Header></Header>
-        <main className="">{children}</main>
+        <main className="p-4">{children}</main>
         <Footer></Footer>
       </div>
     );

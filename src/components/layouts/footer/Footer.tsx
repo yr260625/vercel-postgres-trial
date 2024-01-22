@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
-    <div className="bg-slate-400 absolute left-0 bottom-0 w-full text-white ">
-      Test Footer
-    </div>
+    <footer className="bg-slate-400 absolute left-0 bottom-0 w-full text-white p-4">
+      記事書籍管理
+    </footer>
   );
 };
