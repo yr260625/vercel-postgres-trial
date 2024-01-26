@@ -8,10 +8,10 @@ type Article = {
   updated_at: string;
 };
 
+const API_SERVER_URL = `${process.env.API_SERVER_URL}`;
+
 export default async function Id({ params }: { params: { id: string } }) {
-  const response = await fetch(
-    `http://localhost:3000/api/articles/${params.id}`
-  );
+  const response = await fetch(`${API_SERVER_URL}/api/articles/${params.id}`);
   const article: Article = await response.json();
 
   return <ArticleDetail {...article}></ArticleDetail>;
