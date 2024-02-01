@@ -1,17 +1,17 @@
 import { Footer } from "@/components/layouts/footer/Footer";
 import { Header } from "@/components/layouts/header/Header";
+import { Sidebar } from "@/components/layouts/sidebar/Sidebar";
 import { FC, memo, ReactNode } from "react";
 
-export const PageLayout: FC<{ children: ReactNode }> = memo(
-  function PageLayout({ children }) {
-    return (
-      <div className="relative min-h-[100vh]">
-        <Header></Header>
-        <main className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-          {children}
-        </main>
-        <Footer></Footer>
+export const PageLayout: FC<{ children: ReactNode }> = memo(function PageLayout({ children }) {
+  return (
+    <div className="flex flex-col relative  h-screen">
+      <Header></Header>
+      <div className="flex flex-1">
+        <Sidebar></Sidebar>
+        <main className="h-full flex-1 p-8 bg-gray-400 bg-opacity-10">{children}</main>
       </div>
-    );
-  }
-);
+      <Footer></Footer>
+    </div>
+  );
+});
