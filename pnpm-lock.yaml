@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   '@types/ms':
-    specifier: ^0.7.32
+    specifier: ^0.7.34
     version: 0.7.34
   '@types/node':
     specifier: 20.8.3
