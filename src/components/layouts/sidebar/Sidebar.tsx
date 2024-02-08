@@ -15,7 +15,12 @@ export const Sidebar = () => {
       <div className="flex flex-1 flex-col overflow-y-auto">
         {urlList.map(({ href, name }, idx) => {
           return (
-            <Link href={href} key={idx} className="flex items-center justify-center h-12 border-b">
+            <Link
+              href={href}
+              key={idx}
+              className="flex items-center justify-center h-12 border-b"
+              prefetch={false}
+            >
               <div className={pathname == href ? "text-gray-900" : "text-gray-400"}>{name}</div>
             </Link>
           );

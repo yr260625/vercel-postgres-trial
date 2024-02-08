@@ -1,0 +1,16 @@
+.image_post_modal  {
+  position: absolute;
+  inset: 25% auto auto 50%;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  border-radius: 4px;
+  padding: 20px;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+}
+@media screen and (min-width:1024px) {
+  .image_post_modal  {
+    width: 720px;
+  }
+}

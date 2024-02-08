@@ -9,7 +9,9 @@ export const PageLayout: FC<{ children: ReactNode }> = memo(function PageLayout(
       <Header></Header>
       <div className="flex flex-1">
         <Sidebar></Sidebar>
-        <main className="h-full flex-1 p-8 bg-gray-400 bg-opacity-10">{children}</main>
+        <main className="flex-1 h-full max-w-[1280px] p-8 bg-gray-400 bg-opacity-10">
+          {children}
+        </main>
       </div>
       <Footer></Footer>
     </div>

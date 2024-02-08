@@ -1,0 +1,8 @@
+.multiline_truncate  {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  /* ブラウザ未対応時のための保険 */
+  @apply h-20 max-h-20
+}
