@@ -15,6 +15,10 @@ const API_SERVER_URL = config.apiPrefix + config.apiHost;
 export const ImageList = async () => {
   console.log(`${API_SERVER_URL}/api/uploaded-images/`);
   const response = await fetch(`${API_SERVER_URL}/api/uploaded-images`, { cache: "no-store" });
+
+  // deploy test
+  console.log(response.headers);
+
   const images: UploadedImageProps[] = await response.json();
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
