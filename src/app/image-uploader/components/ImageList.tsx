@@ -12,9 +12,21 @@ export type UploadedImageProps = {
 
 const API_SERVER_URL = config.apiPrefix + config.apiHost;
 
+const getData = async () => {
+  try {
+    console.log(`${API_SERVER_URL}/api/uploaded-images/`);
+    const response = await fetch(`${API_SERVER_URL}/api/uploaded-images`, {
+      cache: "no-store",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 export const ImageList = async () => {
-  const response = await fetch(`${API_SERVER_URL}/api/uploaded-images`, { cache: "no-store" });
-  const images: UploadedImageProps[] = await response.json();
+  const images = await getData();
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {images.map((image: UploadedImageProps, idx: number) => {
