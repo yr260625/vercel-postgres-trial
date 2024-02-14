@@ -15,15 +15,18 @@ const API_SERVER_URL = config.apiPrefix + config.apiHost;
 
 const getData = async () => {
   try {
-    console.log(`${API_SERVER_URL}/api/uploaded-images`);
-    const response = await fetch(`${API_SERVER_URL}/api/uploaded-images`, {
-      cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-        "User-Agent": "*",
-        Accept: "application/json",
-      },
-    });
+    console.log(`https://vercel-postgres-trial-yr260625.vercel.app/api/uploaded-images`);
+    const response = await fetch(
+      `https://vercel-postgres-trial-yr260625.vercel.app/api/uploaded-images`,
+      {
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+          "User-Agent": "*",
+          Accept: "application/json",
+        },
+      }
+    );
     console.log(response.headers);
     return await response.json();
 
