@@ -9,15 +9,15 @@ const API_SERVER_URL = config.apiPrefix + config.apiHost;
 const getData = async (id: string) => {
   try {
     console.log(`${API_SERVER_URL}/api/uploaded-images/${id}`);
-    // const response = await fetch(`${API_SERVER_URL}/api/uploaded-images/${id}`, {
-    //   cache: "no-store",
-    // });
-    // return await response.json();
+    const response = await fetch(`${API_SERVER_URL}/api/uploaded-images/${id}`, {
+      cache: "no-store",
+    });
+    return await response.json();
 
-    // Test
-    const response = await axios.get(`${API_SERVER_URL}/api/uploaded-images/${id}`);
-    console.log(response.headers);
-    return await response.data;
+    // // Test
+    // const response = await axios.get(`${API_SERVER_URL}/api/uploaded-images/${id}`);
+    // console.log(response.headers);
+    // return await response.data;
   } catch (error) {
     console.log(error);
     return {};
