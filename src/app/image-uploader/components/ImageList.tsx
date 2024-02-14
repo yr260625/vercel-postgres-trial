@@ -15,6 +15,8 @@ const API_SERVER_URL = config.apiPrefix + config.apiHost;
 
 const getData = async () => {
   try {
+    console.log(process.env.NEXT_PUBLIC_API_PREFIX);
+    console.log(config.apiPrefix);
     console.log(`${API_SERVER_URL}/api/uploaded-images`);
     const response = await fetch(`${API_SERVER_URL}/api/uploaded-images`, {
       cache: "no-store",
