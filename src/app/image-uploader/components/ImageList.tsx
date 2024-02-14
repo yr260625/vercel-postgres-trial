@@ -1,7 +1,6 @@
 import { ImageCard } from "@/app/image-uploader/components/ImageCard";
 import { config } from "@/lib/config";
-import { cache } from "react";
-import "server-only";
+import axios from "axios";
 
 export type UploadedImageProps = {
   id: string;
@@ -12,21 +11,17 @@ export type UploadedImageProps = {
   updated_at: string;
 };
 
-export const preload = (id: string) => {
-  void getData();
-};
-
 const API_SERVER_URL = config.apiPrefix + config.apiHost;
 
-const getData = cache(async () => {
+const getData = async () => {
   try {
-    console.log(process.env.NEXT_PUBLIC_API_PREFIX);
-    console.log(config.apiPrefix);
     console.log(`${API_SERVER_URL}/api/uploaded-images`);
     const response = await fetch(`${API_SERVER_URL}/api/uploaded-images`, {
       cache: "no-store",
       headers: {
         "Content-Type": "application/json",
+        "User-Agent": "*",
+        Accept: "application/json",
       },
     });
     console.log(response.headers);
@@ -40,7 +35,7 @@ const getData = cache(async () => {
     console.log(error);
     return [];
   }
-});
+};
 
 export const ImageList = async () => {
   const images = await getData();
