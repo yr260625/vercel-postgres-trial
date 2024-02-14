@@ -11,6 +11,9 @@ const getData = async (id: string) => {
     console.log(`${API_SERVER_URL}/api/uploaded-images/${id}`);
     const response = await fetch(`${API_SERVER_URL}/api/uploaded-images/${id}`, {
       cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     return await response.json();
 
