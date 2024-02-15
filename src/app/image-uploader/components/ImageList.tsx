@@ -15,7 +15,10 @@ const API_SERVER_URL = config.apiPrefix + config.apiHost;
 
 const getData = async () => {
   try {
-    console.log(`https://vercel-postgres-trial-yr260625.vercel.app/api/uploaded-images`);
+    console.info(process.env.VERCEL_URL);
+    console.info(process.env.NEXT_PUBLIC_VERCEL_URL);
+    console.info(process.env.VERCEL_BRANCH_URL);
+    console.info(process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL);
     const response = await fetch(
       `https://vercel-postgres-trial-yr260625.vercel.app/api/uploaded-images`,
       {
@@ -27,7 +30,6 @@ const getData = async () => {
         },
       }
     );
-    console.log(response.headers);
     return await response.json();
 
     // // Test
