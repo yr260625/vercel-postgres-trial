@@ -16,7 +16,7 @@ const API_SERVER_URL = config.apiPrefix + config.apiHost;
 const getData = async () => {
   try {
     console.info(process.env.DOMAIN);
-    const response = await fetch(`${process.env.DOMAIN}/api/uploaded-images`, {
+    const response = await fetch(`${process.env.HOST}/api/uploaded-images`, {
       cache: "no-store",
     });
     return await response.json();

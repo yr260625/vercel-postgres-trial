@@ -4,7 +4,7 @@ import { ImageDetail } from "@/app/image-uploader/components/ImageDetail";
 
 const getData = async (id: string) => {
   try {
-    const response = await fetch(`${process.env.DOMAIN}/api/uploaded-images/${id}`, {
+    const response = await fetch(`${process.env.HOST}/api/uploaded-images/${id}`, {
       cache: "no-store",
     });
     return await response.json();
