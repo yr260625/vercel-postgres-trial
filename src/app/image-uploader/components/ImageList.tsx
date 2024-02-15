@@ -15,27 +15,11 @@ const API_SERVER_URL = config.apiPrefix + config.apiHost;
 
 const getData = async () => {
   try {
-    console.info(process.env.VERCEL_URL);
-    console.info(process.env.NEXT_PUBLIC_VERCEL_URL);
-    console.info(process.env.VERCEL_BRANCH_URL);
-    console.info(process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL);
-    const response = await fetch(
-      `https://vercel-postgres-trial-yr260625.vercel.app/api/uploaded-images`,
-      {
-        cache: "no-store",
-        headers: {
-          "Content-Type": "application/json",
-          "User-Agent": "*",
-          Accept: "application/json",
-        },
-      }
-    );
+    console.info(process.env.DOMAIN);
+    const response = await fetch(`${process.env.DOMAIN}/api/uploaded-images`, {
+      cache: "no-store",
+    });
     return await response.json();
-
-    // // Test
-    // const response = await axios.get(`${API_SERVER_URL}/api/uploaded-images`);
-    // console.log(response.headers);
-    // return await response.data;
   } catch (error) {
     console.log(error);
     return [];
