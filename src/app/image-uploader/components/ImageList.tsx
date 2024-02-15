@@ -1,6 +1,5 @@
 import { ImageCard } from "@/app/image-uploader/components/ImageCard";
 import { config } from "@/lib/config";
-import axios from "axios";
 
 export type UploadedImageProps = {
   id: string;
@@ -11,14 +10,9 @@ export type UploadedImageProps = {
   updated_at: string;
 };
 
-const API_SERVER_URL = config.apiPrefix + config.apiHost;
-
 const getData = async () => {
   try {
-    console.info(`${process.env.HOSTNAME}`);
-    console.info(`${process.env.PORT}`);
-    console.info(`${process.env.HOST}`);
-    const response = await fetch(`${process.env.HOST}/api/uploaded-images`, {
+    const response = await fetch(`${process.env.MY_SERVER}/api/uploaded-images`, {
       cache: "no-store",
     });
     return await response.json();
