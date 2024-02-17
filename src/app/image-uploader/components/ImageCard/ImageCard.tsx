@@ -5,7 +5,7 @@ import { UploadedImageProps } from "@/app/image-uploader/components/ImageList";
 
 export const ImageCard = ({ id, title, thumbnail, description }: UploadedImageProps) => {
   return (
-    <Link href={`/image-uploader/${id}`}>
+    <Link href={`/image-uploader/${id}`} className="max-w-fit">
       <div className="max-w-[240px] group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
         <div className="p-4">
           <Image
