@@ -7,7 +7,7 @@ export const Sidebar = () => {
   const pathname = usePathname();
   const urlList = [
     { href: "/image-uploader", name: "画像一覧" },
-    { href: "/image-uploader/post", name: "画像投稿" },
+    { href: "/word-changer", name: "言語変換" },
   ];
 
   return (
