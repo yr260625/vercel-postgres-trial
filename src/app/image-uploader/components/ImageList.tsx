@@ -1,5 +1,4 @@
 import { ImageCard } from "@/app/image-uploader/components/ImageCard";
-import { config } from "@/lib/config";
 
 export type UploadedImageProps = {
   id: string;
@@ -17,7 +16,7 @@ const getData = async () => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
+    window.alert(error);
     return [];
   }
 };

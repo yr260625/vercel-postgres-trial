@@ -8,6 +8,7 @@
   margin-right: -50%;
   transform: translate(-50%, -50%);
   width: 360px;
+  z-index: 100;
 }
 @media screen and (min-width:1024px) {
   .image_post_modal  {
