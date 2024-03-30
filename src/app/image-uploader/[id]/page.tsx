@@ -9,7 +9,7 @@ const getData = async (id: string) => {
     });
     return await response.json();
   } catch (error) {
-    window.alert(error);
+    console.log(error);
     return {};
   }
 };
