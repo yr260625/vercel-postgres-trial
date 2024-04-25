@@ -1,0 +1,55 @@
+<mxfile host="65bd71144e">
+    <diagram id="bKOAG_Rpd42CqfAav-uh" name="ページ1">
+        <mxGraphModel dx="1766" dy="645" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="1">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="17" value="Othello Game" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="1">
+                    <mxGeometry x="60" y="60" width="340" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="対戦開始" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="17">
+                    <mxGeometry x="190" y="41" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="先手&lt;span style=&quot;white-space: pre;&quot;&gt;&#9;&lt;/span&gt;" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.radioButton2;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;gradientColor=#DEDEDE;fillColor=#EDEDED;checked=0;spacing=5;checkedFill=#0085FC;checkedStroke=#ffffff;" vertex="1" parent="17">
+                    <mxGeometry x="80" y="51" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="後手" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.radioButton2;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;gradientColor=#DEDEDE;fillColor=#EDEDED;checked=0;spacing=5;checkedFill=#0085FC;checkedStroke=#ffffff;" vertex="1" parent="17">
+                    <mxGeometry x="130" y="51" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="盤面" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="17">
+                    <mxGeometry x="60" y="80" width="230" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="Othello Game" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="60" width="340" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="中断" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="34">
+                    <mxGeometry x="190" y="41" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="先手&lt;span style=&quot;white-space: pre;&quot;&gt;&#9;&lt;/span&gt;" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.radioButton2;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;gradientColor=#DEDEDE;fillColor=#EDEDED;checked=0;spacing=5;checkedFill=#0085FC;checkedStroke=#ffffff;" vertex="1" parent="34">
+                    <mxGeometry x="80" y="51" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="後手" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.radioButton2;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;gradientColor=#DEDEDE;fillColor=#EDEDED;checked=0;spacing=5;checkedFill=#0085FC;checkedStroke=#ffffff;" vertex="1" parent="34">
+                    <mxGeometry x="130" y="51" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="盤面" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="34">
+                    <mxGeometry x="60" y="80" width="230" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="Othello Game" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="1">
+                    <mxGeometry x="827" y="60" width="340" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="再開" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="39">
+                    <mxGeometry x="190" y="41" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="先手&lt;span style=&quot;white-space: pre;&quot;&gt;&#9;&lt;/span&gt;" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.radioButton2;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;gradientColor=#DEDEDE;fillColor=#EDEDED;checked=0;spacing=5;checkedFill=#0085FC;checkedStroke=#ffffff;" vertex="1" parent="39">
+                    <mxGeometry x="80" y="51" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="後手" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.radioButton2;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;gradientColor=#DEDEDE;fillColor=#EDEDED;checked=0;spacing=5;checkedFill=#0085FC;checkedStroke=#ffffff;" vertex="1" parent="39">
+                    <mxGeometry x="130" y="51" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="盤面" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="39">
+                    <mxGeometry x="60" y="80" width="230" height="230" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

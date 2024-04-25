@@ -18,7 +18,7 @@ export const WordGenerator = () => {
           <div className='flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4'>
             <textarea
               id='outputText'
-              className='w-full md:w-1/2 h-32 border rounded-md resize-none'
+              className='w-full h-32 border rounded-md resize-none'
               placeholder='生成した文字列'
               value={word}
               readOnly

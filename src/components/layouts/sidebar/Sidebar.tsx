@@ -8,6 +8,7 @@ export const Sidebar = () => {
   const urlList = [
     { href: '/image-uploader', name: '画像一覧' },
     { href: '/word-generator', name: '言語変換' },
+    { href: '/othello', name: 'オセロ' },
   ];
 
   return (
