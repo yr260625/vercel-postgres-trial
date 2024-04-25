@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './OthelloBoard.module.css';
 import { OthelloUsecases } from '@/app/othello/features/usecases';
 import { GAME_STATUS, GAME_TURN, INIT_BOARD, Point } from '@/app/othello/common';
