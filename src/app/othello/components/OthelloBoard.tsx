@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
 import styles from './OthelloBoard.module.css';
-import { OthelloUsecases } from '@/app/othello/features/usecases';
-import { GAME_STATUS, GAME_TURN, INIT_BOARD, Point } from '@/app/othello/common';
-import { getFlippableMatrix, judgeWinner } from '@/app/othello/features/domains';
+import { OthelloController } from '@/app/othello/features/controllers';
+import { GAME_STATUS, GAME_TURN } from '@/app/othello/common';
+import { getFlippableMatrix } from '@/app/othello/features/domains';
 import { useOthelloState } from '@/app/othello/features/hooks';
 
 export const OthelloBoard = () => {
@@ -14,8 +14,8 @@ export const OthelloBoard = () => {
   const handlePointClick = async (x: number, y: number) => {
     try {
       // 石を置く
-      const othelloUsecases = new OthelloUsecases();
-      const res = await othelloUsecases.putStone(
+      const controller = new OthelloController();
+      const res = await controller.putStone(
         othelloState.gameId,
         othelloState.nowTurn,
         othelloState.turnCount,
@@ -23,6 +23,7 @@ export const OthelloBoard = () => {
         y
       );
       const newStatus = res.winner ? GAME_STATUS.BEFORE_STARTING : othelloState.gameState;
+      console.log(res);
       setOthelloState({
         ...othelloState,
         turnCount: othelloState.turnCount + 1,

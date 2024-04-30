@@ -1,48 +1,59 @@
 'use server';
+import { ATransactionHandler } from '@/app/api/transaction-interface';
 import { GameStatus } from '@/app/othello/common';
-import { DB, createDbClient } from '@/libs/postgres';
+import { BoardRepostitory } from '@/app/othello/features/repositories/board-repository';
+import { GameRepostitory } from '@/app/othello/features/repositories/game-repository';
+import { TurnRepostitory } from '@/app/othello/features/repositories/turn-repository';
+import { OthelloUsecases } from '@/app/othello/features/usecases';
+import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { id: number } }) {
-  const db = await createDbClient();
-  const id = params.id;
-  const data = await findOthelloGameById(db, id);
-  return NextResponse.json(data);
-}
-
-const findOthelloGameById = async (db: DB, id: number) => {
-  const result = await db.execute(`select * from othello_games where id=${id}`);
-  return result[0];
+type RequestBody = {
+  status: GameStatus;
 };
 
+/**
+ * オセロゲームの状態更新時に呼び出されるリクエスト
+ * PUT /api/othello/[id]
+ * request
+ *   status: "対戦中" | "中断"
+ * response
+ *   status: "対戦中" | "中断"
+ */
 export async function PUT(request: Request, { params }: { params: { id: number } }) {
-  const db = await createDbClient();
-  try {
-    await db.begin();
-    const id = params.id;
-    const req = await request.json();
-    const status = req.status as GameStatus;
-    const res = await modifyOthelloGameState(db, id, status);
-    await db.commit();
+  const gameId: number = params.id;
+  const body = (await request.json()) as { status: GameStatus };
+  const handler = new PutTransactionHandler(gameId, body);
+  return await handler.transaction();
+}
+
+/**
+ * トランザクション
+ */
+class PutTransactionHandler extends ATransactionHandler {
+  private readonly gameId: number;
+  private readonly status: GameStatus;
+  constructor(gameId: number, body: RequestBody) {
+    super();
+    this.gameId = gameId;
+    this.status = body.status;
+  }
+
+  /**
+   *
+   * @param db
+   * @returns
+   */
+  async execute(db: IDB): Promise<any> {
+    const gameRepo = new GameRepostitory(db);
+    const boardRepo = new BoardRepostitory(db);
+    const turnRepo = new TurnRepostitory(db);
+    const usecases = new OthelloUsecases(gameRepo, boardRepo, turnRepo);
+    const res = await usecases.modifyStatus(this.gameId, this.status);
     return NextResponse.json(res);
-  } catch (error) {
+  }
+  async handleError(error: any): Promise<any> {
     console.log(error);
-    await db.rollback();
     throw new Error('status modifying error');
-  } finally {
-    await db.disconnect();
   }
 }
-
-const modifyOthelloGameState = async (db: DB, gameId: number, status: GameStatus) => {
-  const result = await db.execute(
-    `
-    update othello_games
-      set status=$1
-      where id=$2
-    returning status
-  `,
-    [status, gameId]
-  );
-  return result[0].status;
-};

@@ -37,10 +37,12 @@ export const OthelloProvider = ({ children }: ProviderProps) => {
   return <OthelloContext.Provider value={value}>{children}</OthelloContext.Provider>;
 };
 
+// コンポーネント間で使いまわすコンテキスト
 export const useOthelloState = (): OthelloContextType => {
   return useContext(OthelloContext);
 };
 
+// 初期盤面
 export const useOthelloInitState = () => {
   const [initState, _] = useState(othelloInitState);
   return { initState };

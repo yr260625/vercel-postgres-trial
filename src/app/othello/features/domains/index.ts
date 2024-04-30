@@ -1,7 +1,8 @@
-import { GAME_TURN, Point, Turn } from '@/app/othello/common';
-import { DB } from '@/libs/postgres';
+import { GAME_TURN, Turn } from '@/app/othello/common';
+import { Point } from '@/app/othello/features/domains/point';
+import { IDB } from '@/libs/databases/interfaces';
 
-export const findCurrentBoardById = async (db: DB, gameId: number) => {
+export const findCurrentBoardById = async (db: IDB, gameId: number) => {
   const result = await db.execute(
     `select * from othello_boards where game_id=${gameId} order by turn_count desc`
   );
@@ -55,7 +56,7 @@ export const exploreFlippablePoints = (
 
     // 反転可能な座標を記録
     if (walledPoint === oppositeTurn) {
-      flippablePoints.push({ x, y });
+      flippablePoints.push(Point.create(x, y));
     }
     // 自身の石が出現したら終了
     if (walledPoint === nowTurn) {
@@ -115,7 +116,7 @@ export const hasFilippablePoints = (board: number[][], turn: Turn) => {
   const walledBoard = getwalledBoard(board);
   board.forEach((row, x) => {
     row.forEach((val, y) => {
-      const point = { x, y };
+      const point = Point.create(x, y);
       if (
         val === GAME_TURN.NONE &&
         getFlippablePointsAll(walledBoard, turn, point).length > 0
@@ -162,7 +163,7 @@ export const getFlippableMatrix = (board: number[][], nowTurn: Turn) => {
   const walledBoard = getwalledBoard(board);
   return board.map((row, x) => {
     return row.map((val, y) => {
-      const point = { x, y };
+      const point = Point.create(x, y);
       if (val !== GAME_TURN.NONE) {
         return false;
       }
@@ -172,7 +173,7 @@ export const getFlippableMatrix = (board: number[][], nowTurn: Turn) => {
 };
 
 export const createNextBoard = async (
-  db: DB,
+  db: IDB,
   gameId: number,
   nowTurnCount: number,
   nextBoard: number[][]
@@ -188,31 +189,13 @@ export const createNextBoard = async (
   return result[0].board_configuration;
 };
 
-export const createNextTurn = async (db: DB, gameId: number, nowTurnCount: number) => {
+export const createNextTurn = async (db: IDB, gameId: number, nowTurnCount: number) => {
   const result = await db.execute(
     `insert into 
     othello_turns(game_id, turn_count, end_at) 
     values ($1, $2, current_timestamp)
     returning turn_count`,
     [gameId, nowTurnCount]
-  );
-
-  return result[0].turn_count;
-};
-
-export const createNextMove = async (
-  db: DB,
-  gameId: number,
-  nowTurnCount: number,
-  nowTurn: number,
-  point: Point
-) => {
-  const result = await db.execute(
-    `insert into 
-    othello_moves(game_id, turn_count, now_turn, x, y) 
-    values ($1, $2, $3, $4, $5)
-    returning turn_count`,
-    [gameId, nowTurnCount, nowTurn, point.x, point.y]
   );
 
   return result[0].turn_count;

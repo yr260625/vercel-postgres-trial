@@ -1,22 +1,14 @@
+import { IDB } from '@/libs/databases/interfaces';
 import { VercelPoolClient, createPool } from '@vercel/postgres';
 const pool = createPool({
   idleTimeoutMillis: 10000,
   allowExitOnIdle: true,
 });
 
-export interface DB {
-  connect(): Promise<void>;
-  execute(query: string, params?: Array<any>): Promise<any>;
-  disconnect(): Promise<void>;
-  begin(): Promise<void>;
-  commit(): Promise<void>;
-  rollback(): Promise<void>;
-}
-
 /**
  * '@vercel/postgres'をラッピングしたクラス
  */
-class VerecelPostgres implements DB {
+class VerecelPostgres implements IDB {
   private client!: VercelPoolClient;
 
   /**
@@ -74,7 +66,7 @@ class VerecelPostgres implements DB {
  * DBクライアント生成
  * @return {Promise<DB>}
  */
-export const createDbClient = async (): Promise<DB> => {
+export const createDbClient = async (): Promise<IDB> => {
   const client = new VerecelPostgres();
   await client.connect();
   return client;

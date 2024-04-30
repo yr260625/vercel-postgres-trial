@@ -1,65 +1,76 @@
-'use client';
-
-import { GAME_STATUS } from '@/app/othello/common';
+import { GAME_TURN, GameStatus, INIT_BOARD, Turn } from '@/app/othello/common';
+import {
+  canPut,
+  getwalledBoard,
+  getFlippablePointsAll,
+  reverseStoneOnBoard,
+  hasFilippablePoints,
+  judgeWinner,
+} from '@/app/othello/features/domains';
+import { Point } from '@/app/othello/features/domains/point';
+import { BoardRepostitory } from '@/app/othello/features/repositories/board-repository';
+import { GameRepostitory } from '@/app/othello/features/repositories/game-repository';
+import { TurnRepostitory } from '@/app/othello/features/repositories/turn-repository';
 
 export class OthelloUsecases {
-  async start() {
-    console.log('game start!!!!');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello`, {
-      method: 'POST',
-      cache: 'no-store',
-    });
-    return await response.json();
+  constructor(
+    private readonly gameRepo: GameRepostitory,
+    private readonly boardRepo: BoardRepostitory,
+    private readonly turnRepo: TurnRepostitory
+  ) {}
+
+  async gameStart() {
+    const gameId = await this.gameRepo.insert();
+    await Promise.all([
+      this.boardRepo.insert(gameId, 0, INIT_BOARD),
+      this.turnRepo.insert(gameId, 0),
+    ]);
+    return { gameId };
   }
 
-  async pause(gameId: number) {
-    console.log('pause!!!!');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello/${gameId}`, {
-      method: 'PUT',
-      cache: 'no-store',
-      body: JSON.stringify({
-        status: GAME_STATUS.PAUSE,
-      }),
-    });
-    return await response.json();
+  async modifyStatus(gameId: number, status: GameStatus) {
+    const newStatus = await this.gameRepo.modifyState(gameId, status);
+    return { status: newStatus };
   }
 
-  async restart(gameId: number) {
-    console.log('restart!!!!');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello/${gameId}`, {
-      method: 'PUT',
-      cache: 'no-store',
-      body: JSON.stringify({
-        status: GAME_STATUS.STARTING,
-      }),
-    });
-    return await response.json();
-  }
+  async putStone(gameId: number, turnCount: number, nowTurn: Turn, point: Point) {
+    // 現在の盤面を取得
+    const nowBoard = await this.boardRepo.findCurrentBoardById(gameId);
 
-  async putStone(gameId: number, nowTurn: number, turnCount: number, x: number, y: number) {
-    console.log('put stone!!!');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello/board`, {
-      method: 'POST',
-      cache: 'no-store',
-      body: JSON.stringify({
-        gameId,
-        nowTurn,
-        turnCount,
-        x,
-        y,
-      }),
-    });
-    return await response.json();
-  }
+    // 与えられた座標が配置可能かどうか
+    if (!canPut(nowBoard, point)) {
+      console.log('cannot put stone');
+      throw new Error('cannot put stone');
+    }
 
-  async judgement(gameId: number) {
-    console.log('judgement!!!');
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello/judge/${gameId}`,
-      {
-        method: 'GET',
-        cache: 'no-store',
+    // 反転する石があるかどうか
+    const walledBoard = getwalledBoard(nowBoard);
+    const flippablePoints = getFlippablePointsAll(walledBoard, nowTurn, point);
+    if (flippablePoints.length === 0) {
+      console.log('cannot reverse stone');
+      throw new Error('cannot reverse stone');
+    }
+
+    // 反転する
+    const nextBoard = reverseStoneOnBoard(nowBoard, nowTurn, point, flippablePoints);
+
+    // DB更新
+    await Promise.all([
+      this.boardRepo.insert(gameId, turnCount, nextBoard),
+      this.turnRepo.insert(gameId, turnCount),
+    ]);
+
+    // 次ターン
+    let nextTurn = nowTurn === GAME_TURN.BLACK ? GAME_TURN.WHITE : GAME_TURN.BLACK;
+    let winner = '';
+    if (!hasFilippablePoints(nextBoard, nextTurn)) {
+      nextTurn = nowTurn;
+      if (!hasFilippablePoints(nextBoard, nowTurn)) {
+        // 勝敗判定
+        winner = judgeWinner(nextBoard);
       }
-    );
+    }
+
+    return { nextBoard, nextTurn, winner };
   }
 }

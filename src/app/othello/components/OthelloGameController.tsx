@@ -1,7 +1,7 @@
 'use client';
 import { GAME_STATUS, GAME_TURN, INIT_BOARD } from '@/app/othello/common';
 import { useOthelloInitState, useOthelloState } from '@/app/othello/features/hooks';
-import { OthelloUsecases } from '@/app/othello/features/usecases';
+import { OthelloController } from '@/app/othello/features/controllers';
 import { NormalButton } from '@/components/ui-parts/buttons/NormalButton';
 
 export const OthelloGameController = () => {
@@ -11,8 +11,8 @@ export const OthelloGameController = () => {
 
   const handleStart = async () => {
     try {
-      const othelloUsecases = new OthelloUsecases();
-      const { gameId } = await othelloUsecases.start();
+      const controller = new OthelloController();
+      const { gameId } = await controller.start();
       setOthelloState({
         ...initState,
         gameId: Number(gameId),
@@ -26,8 +26,8 @@ export const OthelloGameController = () => {
 
   const handlePause = async () => {
     try {
-      const othelloUsecases = new OthelloUsecases();
-      await othelloUsecases.pause(othelloState.gameId);
+      const controller = new OthelloController();
+      await controller.pause(othelloState.gameId);
       setOthelloState({
         ...othelloState,
         gameState: GAME_STATUS.PAUSE,
@@ -39,8 +39,8 @@ export const OthelloGameController = () => {
 
   const handleRestart = async () => {
     try {
-      const othelloUsecases = new OthelloUsecases();
-      await othelloUsecases.restart(othelloState.gameId);
+      const controller = new OthelloController();
+      await controller.restart(othelloState.gameId);
       setOthelloState({
         ...othelloState,
         gameState: GAME_STATUS.STARTING,

@@ -93,3 +93,11 @@ page.tsx
 ```
 <div className={`${styles.container} ${styles.container_bg}`}></div>
 ```
+
+### mainブランチ以外はvercel deployさせない方法
+
+https://zenn.dev/bisque/scraps/50a51a28d6eb85
+
+https://vercel.com/yr260625s-projects/vercel-postgres-trial/settings/git
+
+`test $(git symbolic-ref --short HEAD) != "main"`
