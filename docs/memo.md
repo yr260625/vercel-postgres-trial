@@ -101,3 +101,15 @@ https://zenn.dev/bisque/scraps/50a51a28d6eb85
 https://vercel.com/yr260625s-projects/vercel-postgres-trial/settings/git
 
 `test $(git symbolic-ref --short HEAD) != "main"`
+
+* 定数オブジェクトのキーのみが入ることを想定した型の宣言
+
+```javascript
+export const GAME_STATUS = {
+  STARTING: '対戦中',
+  PAUSE: '一時停止',
+  BEFORE_STARTING: '開始前',
+  END: '終了',
+} as const;
+export type GameStatus = (typeof GAME_STATUS)[keyof typeof GAME_STATUS];
+```

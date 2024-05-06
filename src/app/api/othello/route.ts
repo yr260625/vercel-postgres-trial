@@ -8,7 +8,7 @@ import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
 
 /**
- * オセロゲームの対戦開始時に呼び出されるリクエスト
+ * 対戦開始時に呼び出されるリクエスト
  * POST /api/othello/board
  * request なし
  * response

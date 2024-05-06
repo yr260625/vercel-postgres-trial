@@ -1,4 +1,10 @@
-import { GameStatus, GAME_STATUS, GAME_TURN, Turn, INIT_BOARD } from '@/app/othello/common';
+import {
+  GameStatus,
+  GAME_STATUS,
+  GAME_TURN,
+  GameTurnVal,
+  INIT_BOARD,
+} from '@/app/othello/common';
 import { Dispatch, SetStateAction, createContext, useContext, useState } from 'react';
 
 /**
@@ -9,7 +15,7 @@ type OthelloState = {
   gameState: GameStatus;
   turnCount: number;
   nowBoard: number[][];
-  nowTurn: Turn;
+  nowTurn: GameTurnVal;
   winner: null | string;
 };
 const othelloInitState: OthelloState = {

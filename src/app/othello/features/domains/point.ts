@@ -9,15 +9,11 @@ export class Point {
     this.y = y;
   }
 
-  static create(x: number, y: number) {
-    return new Point(x, y);
-  }
-
   private validation(x: number, y: number) {
     if (x === null || undefined) throw new Error('The field is required');
     if (y === null || undefined) throw new Error('The field is required');
     if (x < 0 || x > GRID_SIZE) throw new Error('The field is out of range');
     if (y < 0 || y > GRID_SIZE) throw new Error('The field is out of range');
-    return x;
+    return;
   }
 }

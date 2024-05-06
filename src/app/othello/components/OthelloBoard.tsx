@@ -2,14 +2,14 @@
 import React from 'react';
 import styles from './OthelloBoard.module.css';
 import { OthelloController } from '@/app/othello/features/controllers';
-import { GAME_STATUS, GAME_TURN } from '@/app/othello/common';
-import { getFlippableMatrix } from '@/app/othello/features/domains';
+import { BOARD_CELL, GAME_STATUS, GAME_TURN } from '@/app/othello/common';
 import { useOthelloState } from '@/app/othello/features/hooks';
+import { Board } from '@/app/othello/features/domains/board';
 
 export const OthelloBoard = () => {
   const { othelloState, setOthelloState } = useOthelloState();
-  const pointsFlippable = getFlippableMatrix(othelloState.nowBoard, othelloState.nowTurn);
-  console.log(othelloState.winner);
+  const board = new Board(othelloState.nowBoard);
+  const pointsReversible = board.getReversibleMatrix(othelloState.nowTurn);
 
   const handlePointClick = async (x: number, y: number) => {
     try {
@@ -23,7 +23,6 @@ export const OthelloBoard = () => {
         y
       );
       const newStatus = res.winner ? GAME_STATUS.BEFORE_STARTING : othelloState.gameState;
-      console.log(res);
       setOthelloState({
         ...othelloState,
         turnCount: othelloState.turnCount + 1,
@@ -43,16 +42,16 @@ export const OthelloBoard = () => {
         <div key={x} className='flex'>
           {row.map((val, y) => {
             switch (othelloState.nowBoard[x][y]) {
-              case GAME_TURN.NONE:
+              case BOARD_CELL.NONE:
                 return (
                   <button
                     key={`${x}${y}`}
                     className={styles.board__cell}
-                    disabled={!pointsFlippable[x][y]}
+                    disabled={!pointsReversible[x][y]}
                     onClick={() => handlePointClick(x, y)}
                   ></button>
                 );
-              case GAME_TURN.BLACK:
+              case BOARD_CELL.BLACK:
                 return (
                   <button
                     key={`${x}${y}`}
@@ -60,7 +59,7 @@ export const OthelloBoard = () => {
                     disabled
                   ></button>
                 );
-              case GAME_TURN.WHITE:
+              case BOARD_CELL.WHITE:
                 return (
                   <button
                     key={`${x}${y}`}
