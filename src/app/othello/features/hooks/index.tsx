@@ -13,17 +13,17 @@ import { Dispatch, SetStateAction, createContext, useContext, useState } from 'r
 type OthelloState = {
   gameId: number;
   gameState: GameStatus;
-  turnCount: number;
+  nowTurnVal: GameTurnVal;
+  nowTurnCount: number;
   nowBoard: number[][];
-  nowTurn: GameTurnVal;
   winner: null | string;
 };
 const othelloInitState: OthelloState = {
   gameId: 0,
   gameState: GAME_STATUS.BEFORE_STARTING,
-  turnCount: 0,
+  nowTurnVal: GAME_TURN.BLACK,
+  nowTurnCount: 0,
   nowBoard: INIT_BOARD,
-  nowTurn: GAME_TURN.BLACK,
   winner: null,
 };
 

@@ -30,6 +30,7 @@ export class Turn {
     let newBoard = nowTurn.reverseStone();
     // 手番交代判定
     const nextTurn = nowTurn.rotate();
+    // ターン数増加
     const nextTurnCount = nowTurn.turnCount + 1;
 
     return new Turn(nextTurn, nextTurnCount, nowTurn.game, nowTurn.point, newBoard);

@@ -34,24 +34,27 @@ export class OthelloUsecases {
 
   /**
    * 盤面に石を置く
-   * @param gameId
-   * @param turnCount
-   * @param nowTurnVal
-   * @param point
-   * @returns
+   *
+   * @async
+   * @param {number} gameId
+   * @param {GameTurnVal} nowTurnVal
+   * @param {number} nowTurnCount
+   * @param {number} x
+   * @param {number} y
+   * @returns {Promise<ResponseBody>}
    */
   async putStone(
     gameId: number,
-    turnCount: number,
     nowTurnVal: GameTurnVal,
+    nowTurnCount: number,
     x: number,
     y: number
   ): Promise<ResponseBody> {
     // 現在ターンの盤面を取得
     const currentTurn = await this.turnRepo.findCurrentTurn(
       gameId,
-      turnCount,
       nowTurnVal,
+      nowTurnCount,
       x,
       y
     );

@@ -19,8 +19,8 @@ export class TurnRepostitory implements ITurnRepostitory {
 
   async findCurrentTurn(
     gameId: number,
-    turnCount: number,
     nowTurnVal: GameTurnVal,
+    nowTurnCount: number,
     x: number,
     y: number
   ): Promise<Turn> {
@@ -28,7 +28,7 @@ export class TurnRepostitory implements ITurnRepostitory {
     const cells = await boardGateway.findCurrentBoardById(gameId);
     return new Turn(
       nowTurnVal,
-      turnCount,
+      nowTurnCount,
       new Game(gameId, '対戦中'),
       new Point(x, y),
       new Board(cells)

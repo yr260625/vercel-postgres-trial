@@ -9,7 +9,7 @@ import { Board } from '@/app/othello/features/domain/board';
 export const OthelloBoard = () => {
   const { othelloState, setOthelloState } = useOthelloState();
   const board = new Board(othelloState.nowBoard);
-  const pointsReversible = board.getReversibleMatrix(othelloState.nowTurn);
+  const pointsReversible = board.getReversibleMatrix(othelloState.nowTurnVal);
 
   const handlePointClick = async (x: number, y: number) => {
     try {
@@ -17,8 +17,8 @@ export const OthelloBoard = () => {
       const controller = new OthelloController();
       const res = await controller.putStone(
         othelloState.gameId,
-        othelloState.nowTurn,
-        othelloState.turnCount,
+        othelloState.nowTurnVal,
+        othelloState.nowTurnCount,
         x,
         y
       );
@@ -26,8 +26,8 @@ export const OthelloBoard = () => {
       setOthelloState({
         ...othelloState,
         nowBoard: res.nextBoard,
-        nowTurn: res.nextTurnVal,
-        turnCount: res.nextTurnCount,
+        nowTurnVal: res.nextTurnVal,
+        nowTurnCount: res.nextTurnCount,
         winner: res.winner,
         gameState: newStatus,
       });

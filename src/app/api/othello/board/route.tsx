@@ -9,15 +9,15 @@ import { GameRepostitory } from '@/app/othello/features/domain/game-repository';
 
 export type RequestBody = {
   gameId: number;
-  turnCount: number;
-  nowTurn: GameTurnVal;
+  nowTurnVal: GameTurnVal;
+  nowTurnCount: number;
   x: number;
   y: number;
 };
 
 export type ResponseBody = {
   nextBoard: number[][];
-  nextTurnVal: number;
+  nextTurnVal: GameTurnVal;
   nextTurnCount: number;
   winner: string;
 };
@@ -50,8 +50,8 @@ export async function POST(request: Request): Promise<NextResponse> {
  */
 class PostTransactionHandler extends ATransactionHandler {
   private readonly gameId: number;
-  private readonly turnCount: number;
-  private readonly nowTurn: GameTurnVal;
+  private readonly nowTurnVal: GameTurnVal;
+  private readonly nowTurnCount: number;
   private readonly x: number;
   private readonly y: number;
 
@@ -64,8 +64,8 @@ class PostTransactionHandler extends ATransactionHandler {
   constructor(body: RequestBody) {
     super();
     this.gameId = body.gameId;
-    this.turnCount = body.turnCount;
-    this.nowTurn = body.nowTurn;
+    this.nowTurnVal = body.nowTurnVal;
+    this.nowTurnCount = body.nowTurnCount;
     this.x = body.x;
     this.y = body.y;
   }
@@ -83,8 +83,8 @@ class PostTransactionHandler extends ATransactionHandler {
     const usecases = new OthelloUsecases(gameRepo, turnRepo);
     const res = await usecases.putStone(
       this.gameId,
-      this.turnCount,
-      this.nowTurn,
+      this.nowTurnVal,
+      this.nowTurnCount,
       this.x,
       this.y
     );

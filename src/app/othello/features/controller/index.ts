@@ -1,6 +1,7 @@
 'use client';
 
-import { GAME_STATUS } from '@/app/othello/common';
+import { ResponseBody } from '@/app/api/othello/board/route';
+import { GAME_STATUS, GameTurnVal } from '@/app/othello/common';
 
 export class OthelloController {
   /**
@@ -48,19 +49,25 @@ export class OthelloController {
     return await response.json();
   }
 
-  async putStone(gameId: number, nowTurn: number, turnCount: number, x: number, y: number) {
+  async putStone(
+    gameId: number,
+    nowTurnVal: GameTurnVal,
+    nowTurnCount: number,
+    x: number,
+    y: number
+  ) {
     console.log('put stone!!!');
     const response = await fetch(`${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello/board`, {
       method: 'POST',
       cache: 'no-store',
       body: JSON.stringify({
         gameId,
-        nowTurn,
-        turnCount,
+        nowTurnVal,
+        nowTurnCount,
         x,
         y,
       }),
     });
-    return await response.json();
+    return (await response.json()) as ResponseBody;
   }
 }

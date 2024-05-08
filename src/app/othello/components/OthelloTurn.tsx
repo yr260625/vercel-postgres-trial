@@ -9,7 +9,7 @@ export const OthelloTurn = () => {
       {othelloState.winner ? (
         <p className='text-red-600 font-bold text-xl'>{othelloState.winner}</p>
       ) : (
-        <p>{TURN_NAME[othelloState.nowTurn]}のターン</p>
+        <p>{TURN_NAME[othelloState.nowTurnVal]}のターン</p>
       )}
     </div>
   );

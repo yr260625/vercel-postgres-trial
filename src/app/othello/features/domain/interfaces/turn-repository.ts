@@ -5,8 +5,8 @@ export interface ITurnRepostitory {
   insert(gameId: number, turnCount: number): Promise<number>;
   findCurrentTurn(
     gameId: number,
-    turnCount: number,
     nowTurnVal: GameTurnVal,
+    nowTurnCount: number,
     x: number,
     y: number
   ): Promise<Turn>;
