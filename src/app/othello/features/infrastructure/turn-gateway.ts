@@ -1,6 +1,10 @@
+import { GameTurnVal } from '@/app/othello/common';
+import { Board } from '@/app/othello/features/domain/board';
+import { Point } from '@/app/othello/features/domain/point';
+import { Turn } from '@/app/othello/features/domain/turn';
 import { IDB } from '@/libs/databases/interfaces';
 
-export class TurnRepostitory {
+export class TurnGateway {
   constructor(private readonly db: IDB) {}
 
   async insert(gameId: number, turnCount: number): Promise<number> {

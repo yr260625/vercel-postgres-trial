@@ -1,24 +1,38 @@
 import { GAME_TURN, GameTurnVal } from '@/app/othello/common';
-import { Board } from '@/app/othello/features/domains/board';
-import { Point } from '@/app/othello/features/domains/point';
+import { Board } from '@/app/othello/features/domain/board';
+import { Game } from '@/app/othello/features/domain/game';
+import { Point } from '@/app/othello/features/domain/point';
 
 export class Turn {
   readonly turnVal: GameTurnVal;
+  readonly turnCount: number;
+  readonly game: Game;
   readonly point: Point;
-  private board: Board;
+  readonly board: Board;
 
-  constructor(turnVal: GameTurnVal, point: Point, board: Board) {
+  constructor(turnVal: GameTurnVal, turnCount: number, game: Game, point: Point, board: Board) {
     this.turnValidation(turnVal, point, board);
     this.turnVal = turnVal;
+    this.turnCount = turnCount;
+    this.game = game;
     this.point = point;
     this.board = board;
   }
 
-  private turnValidation(turnVal: number, point: Point, board: Board) {
+  private turnValidation(turnVal: GameTurnVal, point: Point, board: Board) {
     if (turnVal === null || undefined) throw new Error('The field is required');
     if (turnVal in GAME_TURN) throw new Error('The field is unknown');
-    if (!board.canPut(point)) throw new Error('cannot put stone');
     return;
+  }
+
+  static nextTurn(nowTurn: Turn) {
+    // 石を置く
+    let newBoard = nowTurn.reverseStone();
+    // 手番交代判定
+    const nextTurn = nowTurn.rotate();
+    const nextTurnCount = nowTurn.turnCount + 1;
+
+    return new Turn(nextTurn, nextTurnCount, nowTurn.game, nowTurn.point, newBoard);
   }
 
   /**
@@ -26,12 +40,12 @@ export class Turn {
    *
    * @public
    * @param {Point} point
-   * @returns {void}
+   * @returns {Board}
    */
-  public putStone(point: Point): void {
+  public putStone(point: Point): Board {
     const cells = structuredClone(this.board.cells);
     cells[point.x][point.y] = this.turnVal;
-    this.board = new Board(cells);
+    return new Board(cells);
   }
 
   /**
@@ -41,23 +55,26 @@ export class Turn {
    * @returns {GameTurnVal}
    */
   public rotate(): GameTurnVal {
-    const nextTurn = this.turnVal === GAME_TURN.BLACK ? GAME_TURN.WHITE : GAME_TURN.BLACK;
-    if (!this.board.hasReversiblePoints(nextTurn)) {
+    const nextTurnVal = this.turnVal === GAME_TURN.BLACK ? GAME_TURN.WHITE : GAME_TURN.BLACK;
+    if (!this.board.hasReversiblePoints(nextTurnVal)) {
       return this.turnVal;
     }
-    return nextTurn;
+    return nextTurnVal;
   }
 
   /**
    * 配置した座標を起点に、周囲の石を裏返す
    *
    * @param {Point} startingPoint
-   * @returns {void}
+   * @returns {Board}
    */
-  public reverseStone(startingPoint: Point): void {
-    const reversiblePoints = this.board.findAllReversiblePoints(this.turnVal, startingPoint);
-    this.board = new Board(
-      this.board.cells.map((row, xIdx) => {
+  public reverseStone(): Board {
+    const reversiblePoints = this.board.findAllReversiblePoints(this.turnVal, this.point);
+    if (!this.board.canPut(this.point)) throw new Error('cannot put stone');
+    const cells = structuredClone(this.board.cells);
+    cells[this.point.x][this.point.y] = this.turnVal;
+    return new Board(
+      cells.map((row, xIdx) => {
         return row.map((col, yIdx) => {
           for (const rPoint of reversiblePoints) {
             if (xIdx === rPoint.x && yIdx === rPoint.y) {
@@ -92,8 +109,4 @@ export class Turn {
     }
     return '引き分け';
   };
-
-  public getBoard(): Board {
-    return this.board;
-  }
 }

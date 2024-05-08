@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
 import styles from './OthelloBoard.module.css';
-import { OthelloController } from '@/app/othello/features/controllers';
+import { OthelloController } from '@/app/othello/features/controller';
 import { BOARD_CELL, GAME_STATUS, GAME_TURN } from '@/app/othello/common';
 import { useOthelloState } from '@/app/othello/features/hooks';
-import { Board } from '@/app/othello/features/domains/board';
+import { Board } from '@/app/othello/features/domain/board';
 
 export const OthelloBoard = () => {
   const { othelloState, setOthelloState } = useOthelloState();
@@ -25,9 +25,9 @@ export const OthelloBoard = () => {
       const newStatus = res.winner ? GAME_STATUS.BEFORE_STARTING : othelloState.gameState;
       setOthelloState({
         ...othelloState,
-        turnCount: othelloState.turnCount + 1,
         nowBoard: res.nextBoard,
-        nowTurn: res.nextTurn,
+        nowTurn: res.nextTurnVal,
+        turnCount: res.nextTurnCount,
         winner: res.winner,
         gameState: newStatus,
       });

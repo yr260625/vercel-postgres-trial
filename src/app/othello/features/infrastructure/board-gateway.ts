@@ -1,7 +1,7 @@
-import { Board } from '@/app/othello/features/domains/board';
+import { Board } from '@/app/othello/features/domain/board';
 import { IDB } from '@/libs/databases/interfaces';
 
-export class BoardRepostitory {
+export class BoardGateway {
   constructor(private readonly db: IDB) {}
 
   async insert(gameId: number, turnCount: number, board: number[][]): Promise<Board> {
@@ -16,10 +16,10 @@ export class BoardRepostitory {
     return new Board(JSON.parse(result[0].board_configuration) as number[][]);
   }
 
-  async findCurrentBoardById(gameId: number): Promise<Board> {
+  async findCurrentBoardById(gameId: number): Promise<number[][]> {
     const result = await this.db.execute(
       `select * from othello_boards where game_id=${gameId} order by turn_count desc`
     );
-    return new Board(JSON.parse(result[0].board_configuration) as number[][]);
+    return JSON.parse(result[0].board_configuration) as number[][];
   }
 }

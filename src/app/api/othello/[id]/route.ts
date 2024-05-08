@@ -1,12 +1,13 @@
 'use server';
 import { ATransactionHandler } from '@/app/api/transaction-interface';
 import { GameStatus } from '@/app/othello/common';
-import { BoardRepostitory } from '@/app/othello/features/repositories/board-repository';
-import { GameRepostitory } from '@/app/othello/features/repositories/game-repository';
-import { TurnRepostitory } from '@/app/othello/features/repositories/turn-repository';
-import { OthelloUsecases } from '@/app/othello/features/usecases';
+import { BoardGateway } from '@/app/othello/features/infrastructure/board-gateway';
+import { GameGateway } from '@/app/othello/features/infrastructure/game-gateway';
+import { TurnRepostitory } from '@/app/othello/features/domain/turn-repository';
+import { OthelloUsecases } from '@/app/othello/features/usecase';
 import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
+import { GameRepostitory } from '@/app/othello/features/domain/game-repository';
 
 type RequestBody = {
   status: GameStatus;
@@ -46,9 +47,8 @@ class PutTransactionHandler extends ATransactionHandler {
    */
   async execute(db: IDB): Promise<any> {
     const gameRepo = new GameRepostitory(db);
-    const boardRepo = new BoardRepostitory(db);
     const turnRepo = new TurnRepostitory(db);
-    const usecases = new OthelloUsecases(gameRepo, boardRepo, turnRepo);
+    const usecases = new OthelloUsecases(gameRepo, turnRepo);
     const res = await usecases.modifyStatus(this.gameId, this.status);
     return NextResponse.json(res);
   }

@@ -1,7 +1,7 @@
 import { GameStatus } from '@/app/othello/common';
 import { IDB } from '@/libs/databases/interfaces';
 
-export class GameRepostitory {
+export class GameGateway {
   constructor(private readonly db: IDB) {}
 
   async insert(): Promise<number> {
@@ -10,10 +10,10 @@ export class GameRepostitory {
       values ('対戦中', current_timestamp)
       returning id
     `);
-    return result[0].id;
+    return result[0].id as number;
   }
 
-  async modifyState(gameId: number, status: GameStatus) {
+  async modifyStatus(gameId: number, status: GameStatus): Promise<GameStatus> {
     const result = await this.db.execute(
       `update othello_games
         set status=$1
@@ -22,6 +22,6 @@ export class GameRepostitory {
     `,
       [status, gameId]
     );
-    return result[0].status;
+    return result[0].status as GameStatus;
   }
 }

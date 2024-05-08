@@ -1,5 +1,5 @@
 import { BOARD_CELL, GAME_TURN, GameTurnVal } from '@/app/othello/common';
-import { Point } from '@/app/othello/features/domains/point';
+import { Point } from '@/app/othello/features/domain/point';
 
 export class Board {
   readonly cells: number[][];

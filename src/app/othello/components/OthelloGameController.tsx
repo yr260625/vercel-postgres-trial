@@ -1,7 +1,7 @@
 'use client';
 import { GAME_STATUS, GAME_TURN, INIT_BOARD } from '@/app/othello/common';
 import { useOthelloInitState, useOthelloState } from '@/app/othello/features/hooks';
-import { OthelloController } from '@/app/othello/features/controllers';
+import { OthelloController } from '@/app/othello/features/controller';
 import { NormalButton } from '@/components/ui-parts/buttons/NormalButton';
 
 export const OthelloGameController = () => {
@@ -17,7 +17,6 @@ export const OthelloGameController = () => {
         ...initState,
         gameId: Number(gameId),
         gameState: GAME_STATUS.STARTING,
-        turnCount: 1,
       });
     } catch (error) {
       window.alert(error);
