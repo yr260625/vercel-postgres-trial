@@ -90,32 +90,32 @@ export class Board {
   ): Point[] {
     const oppositeTurn = nowTurn === GAME_TURN.BLACK ? GAME_TURN.WHITE : GAME_TURN.BLACK;
     const sentinel = this.buildSentinel();
-
     let x = start.x + xDirection;
     let y = start.y + yDirection;
-    let walledPoint = sentinel[x + 1][y + 1];
+    let pointForSentinel = sentinel[x + 1][y + 1];
     const reversiblePoints = [];
     // 進行方向に石がない場合は終了
-    if (walledPoint === BOARD_CELL.NONE) {
+    if (pointForSentinel === BOARD_CELL.NONE) {
       return [];
     }
 
     while (true) {
-      walledPoint = sentinel[x + 1][y + 1];
+      pointForSentinel = sentinel[x + 1][y + 1];
 
       // 反転可能な座標を記録
-      if (walledPoint === oppositeTurn) {
+      if (pointForSentinel === oppositeTurn) {
         reversiblePoints.push(new Point(x, y));
       }
       // 自身の石が出現したら終了
-      if (walledPoint === nowTurn) {
+      if (pointForSentinel === nowTurn) {
         break;
       }
-      // 壁に到達する場合は反転できる石がないものとして終了
-      if (walledPoint === BOARD_CELL.WALL) {
+      // 自身の石が出現する前に、壁または石がない場合は反転できる石がないものとして終了
+      if (pointForSentinel === BOARD_CELL.WALL || pointForSentinel === BOARD_CELL.NONE) {
         reversiblePoints.splice(0);
         break;
       }
+
       x += xDirection;
       y += yDirection;
     }
