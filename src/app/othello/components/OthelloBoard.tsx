@@ -2,9 +2,10 @@
 import React from 'react';
 import styles from './OthelloBoard.module.css';
 import { OthelloController } from '@/app/othello/features/controller';
-import { BOARD_CELL, GAME_STATUS, GAME_TURN } from '@/app/othello/common';
+import { GAME_STATUS } from '@/app/othello/common';
 import { useOthelloState } from '@/app/othello/features/hooks';
 import { Board } from '@/app/othello/features/domain/board';
+import { OthelloCell } from '@/app/othello/components/OthelloCell';
 
 export const OthelloBoard = () => {
   const { othelloState, setOthelloState } = useOthelloState();
@@ -41,33 +42,12 @@ export const OthelloBoard = () => {
       {othelloState.nowBoard.map((row, x) => (
         <div key={x} className='flex'>
           {row.map((val, y) => {
-            switch (othelloState.nowBoard[x][y]) {
-              case BOARD_CELL.NONE:
-                return (
-                  <button
-                    key={`${x}${y}`}
-                    className={styles.board__cell}
-                    disabled={!pointsReversible[x][y]}
-                    onClick={() => handlePointClick(x, y)}
-                  ></button>
-                );
-              case BOARD_CELL.BLACK:
-                return (
-                  <button
-                    key={`${x}${y}`}
-                    className={`${styles.board__cell} ${styles.board__stoneBlacked}`}
-                    disabled
-                  ></button>
-                );
-              case BOARD_CELL.WHITE:
-                return (
-                  <button
-                    key={`${x}${y}`}
-                    className={`${styles.board__cell} ${styles.board__stoneWhited}`}
-                    disabled
-                  ></button>
-                );
-            }
+            const cellProps = {
+              boardVal: othelloState.nowBoard[x][y],
+              isReversible: pointsReversible[x][y],
+              handleClick: () => handlePointClick(x, y),
+            };
+            return <OthelloCell key={`${x}${y}`} {...cellProps}></OthelloCell>;
           })}
         </div>
       ))}

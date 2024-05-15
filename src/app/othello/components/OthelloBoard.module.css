@@ -2,35 +2,3 @@
   pointer-events: none;
   opacity: 0.5;
 }
-
-.board__cell {
-  width: 50px;
-  height: 50px;
-  background-color: green;
-  border: solid black 1px;
-  padding: 5px;
-  
-  @media (min-width: 640px) {
-    width: 60px;
-    height: 60px;
-  }
-}
-.board__cell:not(:disabled) {
-  opacity: 0.5;
-}
-
-.board__cell::after {
-  content: "";
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-.board__stoneBlacked::after {
-  background-color: black;
-}
-
-.board__stoneWhited::after {
-  background-color: white;
-}
