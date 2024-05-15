@@ -56,7 +56,7 @@ export const OthelloBoard = () => {
                   <button
                     key={`${x}${y}`}
                     className={`${styles.board__cell} ${styles.board__stoneBlacked}`}
-                    onClick={() => handlePointClick(x, y)}
+                    disabled
                   ></button>
                 );
               case BOARD_CELL.WHITE:
@@ -64,7 +64,7 @@ export const OthelloBoard = () => {
                   <button
                     key={`${x}${y}`}
                     className={`${styles.board__cell} ${styles.board__stoneWhited}`}
-                    onClick={() => handlePointClick(x, y)}
+                    disabled
                   ></button>
                 );
             }
