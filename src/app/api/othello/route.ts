@@ -26,9 +26,9 @@ class PostTransactionHandler extends ATransactionHandler {
    *
    * @async
    * @param {IDB} db
-   * @returns {Promise<any>}
+   * @returns {Promise<NextResponse>}
    */
-  async execute(db: IDB): Promise<any> {
+  async execute(db: IDB): Promise<NextResponse> {
     const gameRepo = new GameRepostitory(db);
     const turnRepo = new TurnRepostitory(db);
     const usecases = new OthelloUsecases(gameRepo, turnRepo);

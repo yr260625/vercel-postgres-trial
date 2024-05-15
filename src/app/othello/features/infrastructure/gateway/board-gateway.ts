@@ -5,7 +5,8 @@ export class BoardGateway {
   constructor(private readonly db: IDB) {}
 
   async insert(gameId: number, turnCount: number, board: number[][]): Promise<Board> {
-    const result = await this.db.execute(
+    type Row = { board_configuration: string };
+    const result = await this.db.execute<Row>(
       `insert into 
       othello_boards(game_id, turn_count, board_configuration) 
       values ($1, $2, $3)
@@ -17,7 +18,8 @@ export class BoardGateway {
   }
 
   async findCurrentBoardById(gameId: number): Promise<number[][]> {
-    const result = await this.db.execute(
+    type Row = { board_configuration: string };
+    const result = await this.db.execute<Row>(
       `select * from othello_boards where game_id=${gameId} order by turn_count desc`
     );
     return JSON.parse(result[0].board_configuration) as number[][];

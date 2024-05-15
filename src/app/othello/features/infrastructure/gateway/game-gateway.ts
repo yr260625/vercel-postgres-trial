@@ -5,17 +5,19 @@ export class GameGateway {
   constructor(private readonly db: IDB) {}
 
   async insert(): Promise<number> {
-    const result = await this.db.execute(`insert into 
+    type Row = { id: number };
+    const result = await this.db.execute<Row>(`insert into 
       othello_games(status, created_at) 
       values ('対戦中', current_timestamp)
       returning id
     `);
 
-    return result[0].id as number;
+    return result[0].id;
   }
 
   async modifyStatus(gameId: number, status: GameStatus): Promise<GameStatus> {
-    const result = await this.db.execute(
+    type Row = { status: GameStatus };
+    const result = await this.db.execute<Row>(
       `update othello_games
         set status=$1
         where id=$2
@@ -23,6 +25,6 @@ export class GameGateway {
     `,
       [status, gameId]
     );
-    return result[0].status as GameStatus;
+    return result[0].status;
   }
 }

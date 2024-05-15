@@ -1,6 +1,6 @@
 export interface IDB {
   connect(): Promise<void>;
-  execute(query: string, params?: Array<any>): Promise<any>;
+  execute<T>(query: string, params?: Array<number | string>): Promise<T[]>;
   disconnect(): Promise<void>;
   begin(): Promise<void>;
   commit(): Promise<void>;

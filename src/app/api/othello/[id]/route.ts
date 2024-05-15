@@ -47,7 +47,7 @@ class PutTransactionHandler extends ATransactionHandler {
    * @param db
    * @returns
    */
-  async execute(db: IDB): Promise<any> {
+  async execute(db: IDB): Promise<NextResponse> {
     const gameRepo = new GameRepostitory(db);
     const turnRepo = new TurnRepostitory(db);
     const usecases = new OthelloUsecases(gameRepo, turnRepo);
@@ -60,7 +60,7 @@ class PutTransactionHandler extends ATransactionHandler {
    *
    * @async
    * @param {*} error
-   * @returns {Promise<any>}
+   * @returns {Promise<NextResponse>}
    */
   async handleError(error: Error): Promise<NextResponse> {
     console.error(error);
