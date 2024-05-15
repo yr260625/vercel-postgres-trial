@@ -25,7 +25,7 @@ export class Turn {
       throw new DomainError('UnexpectedValue', 'The field is required');
     }
     if (!Object.values(GAME_TURN).includes(turnVal)) {
-      throw new DomainError('UnexpectedValue', 'The field is unknown');
+      throw new DomainError('UnexpectedValue', 'The field is unexpected');
     }
     return;
   }

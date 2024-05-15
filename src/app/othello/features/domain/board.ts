@@ -13,7 +13,7 @@ export class Board {
     val.forEach((row) => {
       row.forEach((val) => {
         if (val in BOARD_CELL) {
-          throw new DomainError('UnexpectedValue', 'The board value is unknown');
+          throw new DomainError('UnexpectedValue', 'The board value is unexpected');
         }
       });
     });

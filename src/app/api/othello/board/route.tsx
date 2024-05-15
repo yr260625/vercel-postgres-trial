@@ -1,6 +1,6 @@
 'use server';
 import { ATransactionHandler } from '@/app/api/transaction-interface';
-import { GameTurnVal } from '@/app/othello/common';
+import { BaseErrorType, GameTurnVal } from '@/app/othello/common';
 import { OthelloUsecases } from '@/app/othello/features/usecase';
 import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
@@ -24,6 +24,9 @@ export type ResponseBody = {
   winner: string;
 };
 
+type BaseResponseType<T, V> = [T | V, { status: number }];
+type ResponseType = BaseResponseType<ResponseBody, BaseErrorType>;
+
 /**
  * 盤面に石を打つときに呼び出されるリクエスト
  * /api/othello/board
@@ -40,11 +43,11 @@ export type ResponseBody = {
  *   nextTurn: Turn
  *   winner: string
  */
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<NextResponse> {
   const req = (await request.json()) as RequestBody;
   const handler = new PostTransactionHandler(req);
-  const res = await handler.transaction();
-  return res;
+  const response = await handler.transaction<ResponseType>();
+  return NextResponse.json(...response);
 }
 
 /**
@@ -77,9 +80,9 @@ class PostTransactionHandler extends ATransactionHandler {
    *
    * @async
    * @param {IDB} db
-   * @returns {Promise<NextResponse>}
+   * @returns {Promise<ResponseType>}
    */
-  async execute(db: IDB): Promise<NextResponse> {
+  async execute(db: IDB): Promise<ResponseType> {
     const gameRepo = new GameRepostitory(db);
     const turnRepo = new TurnRepostitory(db);
     const usecases = new OthelloUsecases(gameRepo, turnRepo);
@@ -90,27 +93,24 @@ class PostTransactionHandler extends ATransactionHandler {
       this.x,
       this.y
     );
-    return NextResponse.json(res);
+    return [res, { status: 200 }];
   }
 
   /**
    * 実装 - エラーハンドリング
    *
    * @async
-   * @param {unknown} error
-   * @returns {Promise<NextResponse>}
+   * @param {Error} error
+   * @returns {Promise<ResponseType>}
    */
-  async handleError(error: Error): Promise<NextResponse> {
+  async handleError(error: Error): Promise<ResponseType> {
     console.error(error);
     if (error instanceof DomainError) {
-      return NextResponse.json({ type: error.type, message: error.message }, { status: 400 });
+      return [{ type: error.type, message: error.message }, { status: 400 }];
     }
     if (error instanceof ApplicationError) {
-      return NextResponse.json({ type: error.type, message: error.message }, { status: 500 });
+      return [{ type: error.type, message: error.message }, { status: 500 }];
     }
-    return NextResponse.json(
-      { type: 'UnexpectedError', message: error.message },
-      { status: 500 }
-    );
+    return [{ type: 'UnexpectedError', message: error.message }, { status: 500 }];
   }
 }

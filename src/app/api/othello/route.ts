@@ -7,6 +7,14 @@ import { NextResponse } from 'next/server';
 import { GameRepostitory } from '@/app/othello/features/infrastructure/game-repository';
 import { ApplicationError } from '@/app/othello/common/error/application-error';
 import { DomainError } from '@/app/othello/common/error/domain-error';
+import { BaseErrorType } from '@/app/othello/common';
+
+export type ResponseBody = {
+  gameId: number;
+};
+
+type BaseResponseType<T, V> = [T | V, { status: number }];
+type ResponseType = BaseResponseType<ResponseBody, BaseErrorType>;
 
 /**
  * 対戦開始時に呼び出されるリクエスト
@@ -15,45 +23,43 @@ import { DomainError } from '@/app/othello/common/error/domain-error';
  * response
  *   gameId: 新規登録されたゲームID
  */
-export async function POST() {
+export async function POST(): Promise<NextResponse> {
   const handler = new PostTransactionHandler();
-  return await handler.transaction();
+  const response = await handler.transaction<ResponseType>();
+  return NextResponse.json(...response);
 }
 
 class PostTransactionHandler extends ATransactionHandler {
   /**
-   * Description placeholder
+   * 実装 - メイン処理
    *
    * @async
    * @param {IDB} db
-   * @returns {Promise<NextResponse>}
+   * @returns {Promise<ResponseType>}
    */
-  async execute(db: IDB): Promise<NextResponse> {
+  async execute(db: IDB): Promise<ResponseType> {
     const gameRepo = new GameRepostitory(db);
     const turnRepo = new TurnRepostitory(db);
     const usecases = new OthelloUsecases(gameRepo, turnRepo);
     const res = await usecases.gameStart();
-    return NextResponse.json(res);
+    return [res, { status: 200 }];
   }
 
   /**
-   * Description placeholder
+   * 実装 - エラーハンドリング
    *
    * @async
-   * @param {unknown} error
-   * @returns {Promise<NextResponse>}
+   * @param {Error} error
+   * @returns {Promise<ResponseType>}
    */
-  async handleError(error: Error): Promise<NextResponse> {
+  async handleError(error: Error): Promise<ResponseType> {
     console.error(error);
     if (error instanceof DomainError) {
-      return NextResponse.json({ type: error.type, message: error.message }, { status: 400 });
+      return [{ type: error.type, message: error.message }, { status: 400 }];
     }
     if (error instanceof ApplicationError) {
-      return NextResponse.json({ type: error.type, message: error.message }, { status: 500 });
+      return [{ type: error.type, message: error.message }, { status: 500 }];
     }
-    return NextResponse.json(
-      { type: 'UnexpectedError', message: error.message },
-      { status: 500 }
-    );
+    return [{ type: 'UnexpectedError', message: error.message }, { status: 500 }];
   }
 }
