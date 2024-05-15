@@ -32,7 +32,7 @@ export const OthelloBoard = () => {
         gameState: newStatus,
       });
     } catch (error) {
-      window.alert(error);
+      console.error(error);
     }
   };
 
@@ -56,7 +56,7 @@ export const OthelloBoard = () => {
                   <button
                     key={`${x}${y}`}
                     className={`${styles.board__cell} ${styles.board__stoneBlacked}`}
-                    disabled
+                    onClick={() => handlePointClick(x, y)}
                   ></button>
                 );
               case BOARD_CELL.WHITE:
@@ -64,7 +64,7 @@ export const OthelloBoard = () => {
                   <button
                     key={`${x}${y}`}
                     className={`${styles.board__cell} ${styles.board__stoneWhited}`}
-                    disabled
+                    onClick={() => handlePointClick(x, y)}
                   ></button>
                 );
             }

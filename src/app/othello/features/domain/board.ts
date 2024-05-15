@@ -1,4 +1,5 @@
 import { BOARD_CELL, GAME_TURN, GameTurnVal } from '@/app/othello/common';
+import { DomainError } from '@/app/othello/common/error/domain-error';
 import { Point } from '@/app/othello/features/domain/point';
 
 export class Board {
@@ -11,7 +12,9 @@ export class Board {
   private validation(val: number[][]) {
     val.forEach((row) => {
       row.forEach((val) => {
-        if (val in BOARD_CELL) throw new Error('The board value is unknown');
+        if (val in BOARD_CELL) {
+          throw new DomainError('UnexpectedValue', 'The board value is unknown');
+        }
       });
     });
     return;

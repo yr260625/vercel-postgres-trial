@@ -51,3 +51,8 @@ export const INIT_BOARD = [
   [0, 2, 1, 0],
   [0, 0, 0, 0],
 ];
+
+export type BaseErrorType = {
+  type: string;
+  message: string;
+};

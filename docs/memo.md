@@ -116,3 +116,4 @@ export type GameStatus = (typeof GAME_STATUS)[keyof typeof GAME_STATUS];
 
 * Turnクラスをpoint,boardの集約クラスとする
 * TurnRepositoryにより、DBアクセスした結果を用いてTurnクラスを再生成する
+* エラーハンドリング

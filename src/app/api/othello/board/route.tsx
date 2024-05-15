@@ -4,8 +4,10 @@ import { GameTurnVal } from '@/app/othello/common';
 import { OthelloUsecases } from '@/app/othello/features/usecase';
 import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
-import { TurnRepostitory } from '@/app/othello/features/domain/turn-repository';
-import { GameRepostitory } from '@/app/othello/features/domain/game-repository';
+import { TurnRepostitory } from '@/app/othello/features/infrastructure/turn-repository';
+import { GameRepostitory } from '@/app/othello/features/infrastructure/game-repository';
+import { DomainError } from '@/app/othello/common/error/domain-error';
+import { ApplicationError } from '@/app/othello/common/error/application-error';
 
 export type RequestBody = {
   gameId: number;
@@ -24,7 +26,7 @@ export type ResponseBody = {
 
 /**
  * 盤面に石を打つときに呼び出されるリクエスト
- *
+ * /api/othello/board
  * @export
  * @async
  * @param {Request} request
@@ -38,11 +40,11 @@ export type ResponseBody = {
  *   nextTurn: Turn
  *   winner: string
  */
-export async function POST(request: Request): Promise<NextResponse> {
+export async function POST(request: Request) {
   const req = (await request.json()) as RequestBody;
   const handler = new PostTransactionHandler(req);
-  const res = await handler.transaction<ResponseBody>();
-  return NextResponse.json(res);
+  const res = await handler.transaction();
+  return res;
 }
 
 /**
@@ -75,9 +77,9 @@ class PostTransactionHandler extends ATransactionHandler {
    *
    * @async
    * @param {IDB} db
-   * @returns {Promise<ResponseBody>}
+   * @returns {Promise<NextResponse>}
    */
-  async execute(db: IDB): Promise<ResponseBody> {
+  async execute(db: IDB): Promise<NextResponse> {
     const gameRepo = new GameRepostitory(db);
     const turnRepo = new TurnRepostitory(db);
     const usecases = new OthelloUsecases(gameRepo, turnRepo);
@@ -88,7 +90,7 @@ class PostTransactionHandler extends ATransactionHandler {
       this.x,
       this.y
     );
-    return res;
+    return NextResponse.json(res);
   }
 
   /**
@@ -96,10 +98,19 @@ class PostTransactionHandler extends ATransactionHandler {
    *
    * @async
    * @param {unknown} error
-   * @returns {Promise<void>}
+   * @returns {Promise<NextResponse>}
    */
-  async handleError(error: unknown): Promise<void> {
-    console.log(error);
-    throw NextResponse.json({ error }, { status: 500 });
+  async handleError(error: Error): Promise<NextResponse> {
+    console.error(error);
+    if (error instanceof DomainError) {
+      return NextResponse.json({ type: error.type, message: error.message }, { status: 400 });
+    }
+    if (error instanceof ApplicationError) {
+      return NextResponse.json({ type: error.type, message: error.message }, { status: 500 });
+    }
+    return NextResponse.json(
+      { type: 'UnexpectedError', message: error.message },
+      { status: 500 }
+    );
   }
 }

@@ -25,7 +25,7 @@ class VerecelPostgres implements IDB {
    * @param params?
    * @return {Promise<any>}
    */
-  async execute(query: string, params?: []): Promise<any> {
+  async execute(query: string, params?: []): Promise<unknown[]> {
     return (await this.client.query(query, params)).rows;
   }
 

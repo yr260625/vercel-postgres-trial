@@ -1,5 +1,6 @@
 import { GAME_TURN, GameTurnVal } from '@/app/othello/common';
 import { Board } from '@/app/othello/features/domain/board';
+import { DomainError } from '@/app/othello/common/error/domain-error';
 import { Game } from '@/app/othello/features/domain/game';
 import { Point } from '@/app/othello/features/domain/point';
 
@@ -11,7 +12,7 @@ export class Turn {
   readonly board: Board;
 
   constructor(turnVal: GameTurnVal, turnCount: number, game: Game, point: Point, board: Board) {
-    this.turnValidation(turnVal, point, board);
+    this.turnValidation(turnVal);
     this.turnVal = turnVal;
     this.turnCount = turnCount;
     this.game = game;
@@ -19,9 +20,13 @@ export class Turn {
     this.board = board;
   }
 
-  private turnValidation(turnVal: GameTurnVal, point: Point, board: Board) {
-    if (turnVal === null || undefined) throw new Error('The field is required');
-    if (turnVal in GAME_TURN) throw new Error('The field is unknown');
+  private turnValidation(turnVal: GameTurnVal) {
+    if (turnVal === null || undefined) {
+      throw new DomainError('UnexpectedValue', 'The field is required');
+    }
+    if (!Object.values(GAME_TURN).includes(turnVal)) {
+      throw new DomainError('UnexpectedValue', 'The field is unknown');
+    }
     return;
   }
 
@@ -66,12 +71,13 @@ export class Turn {
   /**
    * 配置した座標を起点に、周囲の石を裏返す
    *
-   * @param {Point} startingPoint
    * @returns {Board}
    */
   public reverseStone(): Board {
     const reversiblePoints = this.board.findAllReversiblePoints(this.turnVal, this.point);
-    if (!this.board.canPut(this.point)) throw new Error('cannot put stone');
+    if (!this.board.canPut(this.point)) {
+      throw new DomainError('ClickedPointIsNotEmpty', 'The point is not empty');
+    }
     const cells = structuredClone(this.board.cells);
     cells[this.point.x][this.point.y] = this.turnVal;
     return new Board(

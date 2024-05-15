@@ -1,10 +1,12 @@
 'use server';
 import { ATransactionHandler } from '@/app/api/transaction-interface';
-import { TurnRepostitory } from '@/app/othello/features/domain/turn-repository';
+import { TurnRepostitory } from '@/app/othello/features/infrastructure/turn-repository';
 import { OthelloUsecases } from '@/app/othello/features/usecase';
 import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
-import { GameRepostitory } from '@/app/othello/features/domain/game-repository';
+import { GameRepostitory } from '@/app/othello/features/infrastructure/game-repository';
+import { ApplicationError } from '@/app/othello/common/error/application-error';
+import { DomainError } from '@/app/othello/common/error/domain-error';
 
 /**
  * 対戦開始時に呼び出されるリクエスト
@@ -19,6 +21,13 @@ export async function POST() {
 }
 
 class PostTransactionHandler extends ATransactionHandler {
+  /**
+   * Description placeholder
+   *
+   * @async
+   * @param {IDB} db
+   * @returns {Promise<any>}
+   */
   async execute(db: IDB): Promise<any> {
     const gameRepo = new GameRepostitory(db);
     const turnRepo = new TurnRepostitory(db);
@@ -26,8 +35,25 @@ class PostTransactionHandler extends ATransactionHandler {
     const res = await usecases.gameStart();
     return NextResponse.json(res);
   }
-  async handleError(error: any): Promise<any> {
-    console.log(error);
-    throw new Error('game start error');
+
+  /**
+   * Description placeholder
+   *
+   * @async
+   * @param {unknown} error
+   * @returns {Promise<NextResponse>}
+   */
+  async handleError(error: Error): Promise<NextResponse> {
+    console.error(error);
+    if (error instanceof DomainError) {
+      return NextResponse.json({ type: error.type, message: error.message }, { status: 400 });
+    }
+    if (error instanceof ApplicationError) {
+      return NextResponse.json({ type: error.type, message: error.message }, { status: 500 });
+    }
+    return NextResponse.json(
+      { type: 'UnexpectedError', message: error.message },
+      { status: 500 }
+    );
   }
 }

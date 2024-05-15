@@ -1,52 +1,30 @@
 'use client';
 
 import { ResponseBody } from '@/app/api/othello/board/route';
-import { GAME_STATUS, GameTurnVal } from '@/app/othello/common';
+import { GAME_STATUS, GameStatus, GameTurnVal } from '@/app/othello/common';
+import { Api } from '@/libs/api/axios-config';
 
 export class OthelloController {
   /**
    * 対戦開始
    * @returns
    */
-  async start() {
+  async start(): Promise<{ gameId: number }> {
     console.log('game start!!!!');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello`, {
-      method: 'POST',
-      cache: 'no-store',
-    });
-    return await response.json();
+    const response = await Api.post<{ gameId: number }>('/api/othello');
+    return response.data;
   }
 
   /**
    * 中断
    * @returns
    */
-  async pause(gameId: number) {
+  async changeStatus(gameId: number, status: GameStatus) {
     console.log('pause!!!!');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello/${gameId}`, {
-      method: 'PUT',
-      cache: 'no-store',
-      body: JSON.stringify({
-        status: GAME_STATUS.PAUSE,
-      }),
+    const response = await Api.put<{ status: GameStatus }>(`/api/othello/${gameId}`, {
+      status,
     });
-    return await response.json();
-  }
-
-  /**
-   * 再開
-   * @returns
-   */
-  async restart(gameId: number) {
-    console.log('restart!!!!');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello/${gameId}`, {
-      method: 'PUT',
-      cache: 'no-store',
-      body: JSON.stringify({
-        status: GAME_STATUS.STARTING,
-      }),
-    });
-    return await response.json();
+    return response.data;
   }
 
   async putStone(
@@ -57,17 +35,13 @@ export class OthelloController {
     y: number
   ) {
     console.log('put stone!!!');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_MY_SERVER}/api/othello/board`, {
-      method: 'POST',
-      cache: 'no-store',
-      body: JSON.stringify({
-        gameId,
-        nowTurnVal,
-        nowTurnCount,
-        x,
-        y,
-      }),
+    const response = await Api.post<ResponseBody>(`/api/othello/board`, {
+      gameId,
+      nowTurnVal,
+      nowTurnCount,
+      x,
+      y,
     });
-    return (await response.json()) as ResponseBody;
+    return response.data;
   }
 }

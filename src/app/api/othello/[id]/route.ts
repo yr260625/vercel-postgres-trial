@@ -1,13 +1,15 @@
 'use server';
 import { ATransactionHandler } from '@/app/api/transaction-interface';
 import { GameStatus } from '@/app/othello/common';
-import { BoardGateway } from '@/app/othello/features/infrastructure/board-gateway';
-import { GameGateway } from '@/app/othello/features/infrastructure/game-gateway';
-import { TurnRepostitory } from '@/app/othello/features/domain/turn-repository';
+import { BoardGateway } from '@/app/othello/features/infrastructure/gateway/board-gateway';
+import { GameGateway } from '@/app/othello/features/infrastructure/gateway/game-gateway';
+import { TurnRepostitory } from '@/app/othello/features/infrastructure/turn-repository';
 import { OthelloUsecases } from '@/app/othello/features/usecase';
 import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
-import { GameRepostitory } from '@/app/othello/features/domain/game-repository';
+import { GameRepostitory } from '@/app/othello/features/infrastructure/game-repository';
+import { DomainError } from '@/app/othello/common/error/domain-error';
+import { ApplicationError } from '@/app/othello/common/error/application-error';
 
 type RequestBody = {
   status: GameStatus;
@@ -52,8 +54,25 @@ class PutTransactionHandler extends ATransactionHandler {
     const res = await usecases.modifyStatus(this.gameId, this.status);
     return NextResponse.json(res);
   }
-  async handleError(error: any): Promise<any> {
-    console.log(error);
-    throw new Error('status modifying error');
+
+  /**
+   * Description placeholder
+   *
+   * @async
+   * @param {*} error
+   * @returns {Promise<any>}
+   */
+  async handleError(error: Error): Promise<NextResponse> {
+    console.error(error);
+    if (error instanceof DomainError) {
+      return NextResponse.json({ type: error.type, message: error.message }, { status: 400 });
+    }
+    if (error instanceof ApplicationError) {
+      return NextResponse.json({ type: error.type, message: error.message }, { status: 500 });
+    }
+    return NextResponse.json(
+      { type: 'UnexpectedError', message: error.message },
+      { status: 500 }
+    );
   }
 }

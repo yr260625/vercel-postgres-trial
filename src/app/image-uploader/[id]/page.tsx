@@ -1,15 +1,15 @@
 // build時のfetch error回避
-export const dynamic = "force-dynamic";
-import { ImageDetail } from "@/app/image-uploader/components/ImageDetail";
+export const dynamic = 'force-dynamic';
+import { ImageDetail } from '@/app/image-uploader/components/ImageDetail';
 
 const getData = async (id: string) => {
   try {
     const response = await fetch(`${process.env.MY_SERVER}/api/uploaded-images/${id}`, {
-      cache: "no-store",
+      cache: 'no-store',
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return {};
   }
 };

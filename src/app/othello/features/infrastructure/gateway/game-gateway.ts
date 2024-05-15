@@ -10,6 +10,7 @@ export class GameGateway {
       values ('対戦中', current_timestamp)
       returning id
     `);
+
     return result[0].id as number;
   }
 

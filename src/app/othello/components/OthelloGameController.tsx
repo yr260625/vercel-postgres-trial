@@ -1,5 +1,5 @@
 'use client';
-import { GAME_STATUS, GAME_TURN, INIT_BOARD } from '@/app/othello/common';
+import { GAME_STATUS, GAME_TURN, GameStatus, INIT_BOARD } from '@/app/othello/common';
 import { useOthelloInitState, useOthelloState } from '@/app/othello/features/hooks';
 import { OthelloController } from '@/app/othello/features/controller';
 import { NormalButton } from '@/components/ui-parts/buttons/NormalButton';
@@ -7,11 +7,11 @@ import { NormalButton } from '@/components/ui-parts/buttons/NormalButton';
 export const OthelloGameController = () => {
   const { othelloState, setOthelloState } = useOthelloState();
   const { initState } = useOthelloInitState();
+  const controller = new OthelloController();
   console.log(othelloState);
 
   const handleStart = async () => {
     try {
-      const controller = new OthelloController();
       const { gameId } = await controller.start();
       setOthelloState({
         ...initState,
@@ -19,33 +19,19 @@ export const OthelloGameController = () => {
         gameState: GAME_STATUS.STARTING,
       });
     } catch (error) {
-      window.alert(error);
+      console.error(error);
     }
   };
 
-  const handlePause = async () => {
+  const handleChangeStatus = async (status: GameStatus) => {
     try {
-      const controller = new OthelloController();
-      await controller.pause(othelloState.gameId);
+      await controller.changeStatus(othelloState.gameId, status);
       setOthelloState({
         ...othelloState,
-        gameState: GAME_STATUS.PAUSE,
+        gameState: status,
       });
     } catch (error) {
-      window.alert(error);
-    }
-  };
-
-  const handleRestart = async () => {
-    try {
-      const controller = new OthelloController();
-      await controller.restart(othelloState.gameId);
-      setOthelloState({
-        ...othelloState,
-        gameState: GAME_STATUS.STARTING,
-      });
-    } catch (error) {
-      window.alert(error);
+      console.error(error);
     }
   };
 
@@ -62,9 +48,13 @@ export const OthelloGameController = () => {
         </div>
       </div>
       {othelloState.gameState === GAME_STATUS.STARTING ? (
-        <NormalButton clickHandler={() => handlePause()}>一時停止</NormalButton>
+        <NormalButton clickHandler={() => handleChangeStatus(GAME_STATUS.PAUSE)}>
+          一時停止
+        </NormalButton>
       ) : othelloState.gameState === GAME_STATUS.PAUSE ? (
-        <NormalButton clickHandler={() => handleRestart()}>再開</NormalButton>
+        <NormalButton clickHandler={() => handleChangeStatus(GAME_STATUS.STARTING)}>
+          再開
+        </NormalButton>
       ) : (
         <NormalButton clickHandler={() => handleStart()}>対戦開始</NormalButton>
       )}
