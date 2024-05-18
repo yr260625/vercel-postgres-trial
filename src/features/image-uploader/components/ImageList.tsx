@@ -1,4 +1,5 @@
 import { ImageCard } from '@/features/image-uploader/components/ImageCard/ImageCard';
+import { Api } from '@/libs/api/axios-config';
 
 export type UploadedImageProps = {
   id: string;
@@ -11,10 +12,10 @@ export type UploadedImageProps = {
 
 const getData = async () => {
   try {
-    const response = await fetch(`${process.env.MY_SERVER}/api/uploaded-images`, {
-      cache: 'no-store',
-    });
-    return await response.json();
+    const response = await Api.get<UploadedImageProps[]>(
+      `${process.env.MY_SERVER}/api/uploaded-images`
+    );
+    return response.data;
   } catch (error) {
     console.error(error);
     return [];
