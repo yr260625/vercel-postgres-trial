@@ -1,8 +1,10 @@
 'use client';
-import { OthelloBoard } from '@/app/othello/components/OthelloBoard';
-import { OthelloGameController } from '@/app/othello/components/OthelloGameController';
-import { OthelloTurn } from '@/app/othello/components/OthelloTurn';
-import { OthelloProvider } from '@/app/othello/features/hooks';
+
+import { OthelloBoard } from '@/features/othello/components/OthelloBoard';
+import { OthelloGameController } from '@/features/othello/components/OthelloGameController';
+import { OthelloTurn } from '@/features/othello/components/OthelloTurn';
+import { OthelloProvider } from '@/features/othello/hooks';
+
 // build時のfetch error回避
 export const dynamic = 'force-dynamic';
 

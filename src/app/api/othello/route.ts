@@ -1,13 +1,13 @@
 'use server';
 import { ATransactionHandler } from '@/app/api/transaction-interface';
-import { TurnRepostitory } from '@/app/othello/features/infrastructure/turn-repository';
-import { OthelloUsecases } from '@/app/othello/features/usecase';
+import { BaseErrorType } from '@/features/othello/common';
+import { ApplicationError } from '@/features/othello/common/error/application-error';
+import { DomainError } from '@/features/othello/common/error/domain-error';
+import { GameRepostitory } from '@/features/othello/infrastructure/game-repository';
+import { TurnRepostitory } from '@/features/othello/infrastructure/turn-repository';
+import { OthelloUsecases } from '@/features/othello/usecase';
 import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
-import { GameRepostitory } from '@/app/othello/features/infrastructure/game-repository';
-import { ApplicationError } from '@/app/othello/common/error/application-error';
-import { DomainError } from '@/app/othello/common/error/domain-error';
-import { BaseErrorType } from '@/app/othello/common';
 
 export type ResponseBody = {
   gameId: number;

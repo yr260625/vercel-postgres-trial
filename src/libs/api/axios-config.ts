@@ -1,4 +1,4 @@
-import { BaseErrorType } from '@/app/othello/common';
+import { BaseErrorType } from '@/features/othello/common';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 // 基本設定

@@ -1,6 +1,7 @@
+import { ImageDetail } from '@/features/image-uploader/components/ImageDetail/ImageDetail';
+
 // build時のfetch error回避
 export const dynamic = 'force-dynamic';
-import { ImageDetail } from '@/app/image-uploader/components/ImageDetail';
 
 const getData = async (id: string) => {
   try {
