@@ -12,7 +12,7 @@ type ResponseBody = ImageRecord;
 type BaseResponseType<T, V> = [T | V, { status: number }];
 type ResponseType = BaseResponseType<ResponseBody, BaseErrorType>;
 
-export async function GET(request: Request, { params }: { params: { id: number } }) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   const id = params.id;
   const handler = new GetTransactionHandler(id);
   const response = await handler.transaction<ResponseType>();
@@ -20,15 +20,15 @@ export async function GET(request: Request, { params }: { params: { id: number }
 }
 
 class GetTransactionHandler extends ATransactionHandler {
-  private readonly imageId: number;
+  private readonly imageId: string;
 
   /**
    * コンストラクタ
    *
    * @constructor
-   * @param {number} imageId
+   * @param {string} imageId
    */
-  constructor(imageId: number) {
+  constructor(imageId: string) {
     super();
     this.imageId = imageId;
   }

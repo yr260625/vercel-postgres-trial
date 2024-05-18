@@ -7,8 +7,8 @@ export class ImageGateway {
     return await this.db.execute<T>(`select * from uploaded_images`);
   }
 
-  async findById<T>(id: number): Promise<T> {
-    const result = await this.db.execute<T>(`select * from uploaded_images where id = ${id}`);
+  async findById<T>(id: string): Promise<T> {
+    const result = await this.db.execute<T>(`select * from uploaded_images where id='${id}'`);
     return result[0];
   }
 }

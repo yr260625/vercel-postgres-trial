@@ -18,7 +18,7 @@ export class ImageRepostitory {
     return this.imageGateway.findAll<ImageRecord>();
   }
 
-  async findById(id: number): Promise<ImageRecord> {
+  async findById(id: string): Promise<ImageRecord> {
     return this.imageGateway.findById<ImageRecord>(id);
   }
 }
