@@ -5,7 +5,8 @@ import { ApplicationError } from '@/features/othello/common/error/application-er
 import { DomainError } from '@/features/othello/common/error/domain-error';
 import { GameRepostitory } from '@/features/othello/infrastructure/game-repository';
 import { TurnRepostitory } from '@/features/othello/infrastructure/turn-repository';
-import { OthelloUsecases } from '@/features/othello/usecase';
+import { PlaySoloGame } from '@/features/othello/usecases/playSoloGame';
+import { StartGameUsecase } from '@/features/othello/usecases/startGameUsecase';
 import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
 
@@ -83,10 +84,9 @@ class PostTransactionHandler extends ATransactionHandler {
    * @returns {Promise<ResponseType>}
    */
   async execute(db: IDB): Promise<ResponseType> {
-    const gameRepo = new GameRepostitory(db);
     const turnRepo = new TurnRepostitory(db);
-    const usecases = new OthelloUsecases(gameRepo, turnRepo);
-    const res = await usecases.putStone(
+    const usecases = new PlaySoloGame(turnRepo);
+    const res = await usecases.run(
       this.gameId,
       this.nowTurnVal,
       this.nowTurnCount,

@@ -3,7 +3,7 @@
 import { OthelloBoard } from '@/features/othello/components/OthelloBoard';
 import { OthelloGameController } from '@/features/othello/components/OthelloGameController';
 import { OthelloTurn } from '@/features/othello/components/OthelloTurn';
-import { OthelloProvider } from '@/features/othello/hooks';
+import { OthelloProvider } from '@/features/othello/hooks/hooks';
 
 // build時のfetch error回避
 export const dynamic = 'force-dynamic';

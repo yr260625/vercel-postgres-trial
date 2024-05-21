@@ -5,7 +5,7 @@ import { GAME_STATUS } from '@/features/othello/common';
 import { OthelloCell } from '@/features/othello/components/OthelloCell';
 import { OthelloController } from '@/features/othello/components/controller';
 import { Board } from '@/features/othello/domain/board';
-import { useOthelloState } from '@/features/othello/hooks';
+import { useOthelloState } from '@/features/othello/hooks/hooks';
 
 export const OthelloBoard = () => {
   const { othelloState, setOthelloState } = useOthelloState();

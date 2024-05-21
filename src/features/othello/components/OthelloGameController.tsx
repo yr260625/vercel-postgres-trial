@@ -3,7 +3,7 @@
 import { NormalButton } from '@/components/ui-parts/buttons/NormalButton';
 import { GAME_STATUS, GameStatus } from '@/features/othello/common';
 import { OthelloController } from '@/features/othello/components/controller';
-import { useOthelloInitState, useOthelloState } from '@/features/othello/hooks';
+import { useOthelloInitState, useOthelloState } from '@/features/othello/hooks/hooks';
 
 export const OthelloGameController = () => {
   const { othelloState, setOthelloState } = useOthelloState();

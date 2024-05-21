@@ -4,8 +4,7 @@ import { GameStatus, BaseErrorType } from '@/features/othello/common';
 import { ApplicationError } from '@/features/othello/common/error/application-error';
 import { DomainError } from '@/features/othello/common/error/domain-error';
 import { GameRepostitory } from '@/features/othello/infrastructure/game-repository';
-import { TurnRepostitory } from '@/features/othello/infrastructure/turn-repository';
-import { OthelloUsecases } from '@/features/othello/usecase';
+import { ModifyGameStatus } from '@/features/othello/usecases/modifyGameStatus';
 import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
 
@@ -65,9 +64,8 @@ class PutTransactionHandler extends ATransactionHandler {
    */
   async execute(db: IDB): Promise<ResponseType> {
     const gameRepo = new GameRepostitory(db);
-    const turnRepo = new TurnRepostitory(db);
-    const usecases = new OthelloUsecases(gameRepo, turnRepo);
-    const res = await usecases.modifyStatus(this.gameId, this.status);
+    const usecases = new ModifyGameStatus(gameRepo);
+    const res = await usecases.run(this.gameId, this.status);
     return [res, { status: 200 }];
   }
 

@@ -1,36 +1,10 @@
 import { ResponseBody } from '@/app/api/othello/board/route';
-import { GameStatus, GameTurnVal } from '@/features/othello/common';
-import { Game } from '@/features/othello/domain/game';
-import { IGameRepostitory } from '@/features/othello/domain/interfaces/game-repository';
+import { GameTurnVal } from '@/features/othello/common';
 import { ITurnRepostitory } from '@/features/othello/domain/interfaces/turn-repository';
 import { Turn } from '@/features/othello/domain/turn';
 
-export class OthelloUsecases {
-  constructor(
-    private readonly gameRepo: IGameRepostitory,
-    private readonly turnRepo: ITurnRepostitory
-  ) {}
-
-  /**
-   * 対戦開始
-   * @returns Promise<{gameId: number}>
-   */
-  async gameStart() {
-    const game = await this.gameRepo.insert();
-    return { gameId: game.id };
-  }
-
-  /**
-   * 対戦中断、対戦再開
-   * @param gameId
-   * @param status
-   * @returns Promise<{status: GameStatus}>
-   */
-  async modifyStatus(gameId: number, status: GameStatus) {
-    const game = new Game(gameId, status);
-    const newGame = await this.gameRepo.modifyStatus(game);
-    return { status: newGame.status };
-  }
+export class PlaySoloGame {
+  constructor(private readonly turnRepo: ITurnRepostitory) {}
 
   /**
    * 盤面に石を置く
@@ -43,7 +17,7 @@ export class OthelloUsecases {
    * @param {number} y
    * @returns {Promise<ResponseBody>}
    */
-  async putStone(
+  async run(
     gameId: number,
     nowTurnVal: GameTurnVal,
     nowTurnCount: number,
