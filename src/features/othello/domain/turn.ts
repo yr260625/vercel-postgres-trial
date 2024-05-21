@@ -30,42 +30,21 @@ export class Turn {
     return;
   }
 
-  static nextTurn(nowTurn: Turn) {
-    // 石を置く
-    let newBoard = nowTurn.reverseStone();
-    // 手番交代判定
-    const nextTurn = nowTurn.rotate();
+  /**
+   * 次ターンの開始盤面を取得
+   *
+   * @public
+   * @returns {Turn}
+   */
+  public createNextTurn(): Turn {
+    // 新しい盤面を取得
+    const nextBoard = this.createNextBoard();
     // ターン数増加
-    const nextTurnCount = nowTurn.turnCount + 1;
-
-    return new Turn(nextTurn, nextTurnCount, nowTurn.game, nowTurn.point, newBoard);
-  }
-
-  /**
-   * 指定された座標に石を配置
-   *
-   * @public
-   * @param {Point} point
-   * @returns {Board}
-   */
-  public putStone(point: Point): Board {
-    const cells = structuredClone(this.board.cells);
-    cells[point.x][point.y] = this.turnVal;
-    return new Board(cells);
-  }
-
-  /**
-   * 次ターンを取得
-   *
-   * @public
-   * @returns {GameTurnVal}
-   */
-  public rotate(): GameTurnVal {
-    const nextTurnVal = this.turnVal === GAME_TURN.BLACK ? GAME_TURN.WHITE : GAME_TURN.BLACK;
-    if (!this.board.hasReversiblePoints(nextTurnVal)) {
-      return this.turnVal;
-    }
-    return nextTurnVal;
+    const nextTurnCount = this.turnCount + 1;
+    // ターン生成
+    const nextTurn = new Turn(this.turnVal, nextTurnCount, this.game, this.point, nextBoard);
+    // 手番交代
+    return nextTurn.rotate();
   }
 
   /**
@@ -73,7 +52,7 @@ export class Turn {
    *
    * @returns {Board}
    */
-  public reverseStone(): Board {
+  public createNextBoard(): Board {
     const reversiblePoints = this.board.findAllReversiblePoints(this.turnVal, this.point);
     if (!this.board.canPut(this.point)) {
       throw new DomainError('ClickedPointIsNotEmpty', 'The point is not empty');
@@ -92,6 +71,20 @@ export class Turn {
         });
       })
     );
+  }
+
+  /**
+   * 次ターンを取得
+   *
+   * @public
+   * @returns {Turn}
+   */
+  private rotate(): Turn {
+    const nextTurnVal = this.turnVal === GAME_TURN.BLACK ? GAME_TURN.WHITE : GAME_TURN.BLACK;
+    if (!this.board.hasReversiblePoints(nextTurnVal)) {
+      return new Turn(this.turnVal, this.turnCount, this.game, this.point, this.board);
+    }
+    return new Turn(nextTurnVal, this.turnCount, this.game, this.point, this.board);
   }
 
   /**

@@ -34,7 +34,7 @@ export class PlaySoloGame {
     );
 
     // 次ターンの開始盤面を取得
-    const nextTurn = Turn.nextTurn(currentTurn);
+    const nextTurn = currentTurn.createNextTurn();
 
     // DB更新
     this.turnRepo.save(nextTurn);

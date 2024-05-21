@@ -10,7 +10,6 @@ export type OthelloCellProps = {
 };
 
 export const OthelloCell = memo(({ boardVal, isReversible, handleClick }: OthelloCellProps) => {
-  console.log('OthelloCell');
   switch (boardVal) {
     case BOARD_CELL.BLACK:
       return (
