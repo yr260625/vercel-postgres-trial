@@ -1,0 +1,92 @@
+openapi: '3.0.3'
+
+info:
+  title: vercel-postgres-trial
+  version: 1.0.0
+
+  
+servers: 
+  - url: http://localhost:3000
+    description: 開発環境
+
+paths:
+  /api/othello:
+    post:
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gameId:
+                    type: number
+  /api/othello/{gameId}:
+    put:
+      requestBody:
+        content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+      responses:
+        204:
+          description: No Content
+
+  /api/othello/board:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gameId:
+                  type: number
+                  example: 1
+                nowTurnVal:
+                  type: number
+                  example: 1
+                nowTurnCount:
+                  type: number
+                  example: 10
+                x:
+                  type: number
+                  example: 5
+                y:
+                  type: number
+                  example: 5
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nextBoard:
+                    type: array
+                    example:
+                      [
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 1, 2, 0, 0, 0],
+                        [0, 0, 1, 1, 1, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0]
+                      ]
+                  nextTurnVal:
+                    type: number
+                    example: 2
+                  nextTurnCount:
+                    type: number
+                    example: 11
+                  winner:
+                    type: string
+                    example: ""
+ 

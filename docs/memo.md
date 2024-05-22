@@ -114,8 +114,8 @@ export const GAME_STATUS = {
 export type GameStatus = (typeof GAME_STATUS)[keyof typeof GAME_STATUS];
 ```
 
-* Turnクラスをpoint,boardの集約クラスとする
-* TurnRepositoryにより、DBアクセスした結果を用いてTurnクラスを再生成する
-* エラーハンドリング
-* ディレクトリ整理
+* ドキュメント整理
+* tailwindからshadcn/uiに変更
+* 画面修正
+* Jest
 * 

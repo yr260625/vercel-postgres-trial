@@ -1,59 +1,50 @@
 <mxfile host="65bd71144e">
     <diagram id="bKOAG_Rpd42CqfAav-uh" name="ページ1">
-        <mxGraphModel dx="418" dy="551" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="1">
+        <mxGraphModel dx="2114" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="1">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="9" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="2" target="4">
+                <mxCell id="21" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="4" target="7" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="2" value="Player" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="40" y="40" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="21" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="4" target="7">
+                <mxCell id="27" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;" parent="1" source="4" target="6" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="27" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="4" target="6">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="4" value="Turn" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="80" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="Game" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="240" y="40" width="120" height="60" as="geometry"/>
+                <mxCell id="6" value="Point" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="80" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="5" value="Board" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="440" y="161" width="120" height="60" as="geometry"/>
+                <mxCell id="7" value="Board" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="200" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="24" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="6" target="5">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="28" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="315" y="85" width="30" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="Turn" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="440" y="40" width="120" height="60" as="geometry"/>
+                <mxCell id="29" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="374" y="85" width="30" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="GameResult" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="240" y="160" width="120" height="60" as="geometry"/>
+                <mxCell id="32" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="255" y="135" width="30" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="25" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;labelBackgroundColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="495" y="100" width="30" height="30" as="geometry"/>
+                <mxCell id="33" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;labelBackgroundColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="255" y="175" width="30" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="26" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="495" y="136" width="30" height="30" as="geometry"/>
+                <mxCell id="34" value="Game" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="320" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="28" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="355" y="45" width="30" height="30" as="geometry"/>
+                <mxCell id="35" value="盤面に関するクラス" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=#fff2cc;strokeColor=#d6b656;size=35;position=0.09;base=30;position2=0.01;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="155" width="120" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="29" value="N" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="414" y="45" width="30" height="30" as="geometry"/>
+                <mxCell id="36" value="盤面と配置された座標&lt;br&gt;を取りまとめる" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=#fff2cc;strokeColor=#d6b656;size=30;position=0.58;base=20;" vertex="1" parent="1">
+                    <mxGeometry x="185" y="10" width="150" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="30" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="160" y="45" width="30" height="30" as="geometry"/>
+                <mxCell id="37" value="座標に関するクラス" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=#fff2cc;strokeColor=#d6b656;size=30;position=0.58;base=30;" vertex="1" parent="1">
+                    <mxGeometry x="470" y="15" width="120" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="31" value="N" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="215" y="45" width="30" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="32" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="295" y="95" width="30" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="33" value="0...1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;labelBackgroundColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="294" y="135" width="50" height="30" as="geometry"/>
+                <mxCell id="38" value="ゲームの状態" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=#fff2cc;strokeColor=#d6b656;size=35;position=0.09;base=30;position2=0.01;" vertex="1" parent="1">
+                    <mxGeometry x="329" y="280" width="120" height="70" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
