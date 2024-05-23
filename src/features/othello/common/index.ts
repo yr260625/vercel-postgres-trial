@@ -33,24 +33,24 @@ export const BOARD_CELL = {
 } as const;
 export type BoardCellVal = (typeof BOARD_CELL)[keyof typeof BOARD_CELL];
 
-// export const GRID_SIZE = 8
-// export const INIT_BOARD = [
-//   [0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 1, 2, 0, 0, 0],
-//   [0, 0, 0, 2, 1, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0],
-// ];
-export const GRID_SIZE = 4;
+export const GRID_SIZE = 8;
 export const INIT_BOARD = [
-  [0, 0, 0, 0],
-  [0, 1, 2, 0],
-  [0, 2, 1, 0],
-  [0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 2, 0, 0, 0],
+  [0, 0, 0, 2, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
 ];
+// export const GRID_SIZE = 4;
+// export const INIT_BOARD = [
+//   [0, 0, 0, 0],
+//   [0, 1, 2, 0],
+//   [0, 2, 1, 0],
+//   [0, 0, 0, 0],
+// ];
 
 export type BaseErrorType = {
   type: string;

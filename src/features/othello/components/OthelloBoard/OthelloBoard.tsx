@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from './OthelloBoard.module.css';
 import { GAME_STATUS } from '@/features/othello/common';
-import { OthelloCell } from '@/features/othello/components/OthelloCell';
+import { OthelloCell } from '@/features/othello/components/OthelloBoard/OthelloCell';
 import { OthelloController } from '@/features/othello/components/controller';
 import { Board } from '@/features/othello/domain/board';
 import { useOthelloState } from '@/features/othello/hooks/hooks';

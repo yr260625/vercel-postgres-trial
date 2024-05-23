@@ -114,8 +114,8 @@ export const GAME_STATUS = {
 export type GameStatus = (typeof GAME_STATUS)[keyof typeof GAME_STATUS];
 ```
 
-* ドキュメント整理
 * tailwindからshadcn/uiに変更
 * 画面修正
+* レスポンスコード修正
 * Jest
 * 

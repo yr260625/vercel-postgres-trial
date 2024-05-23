@@ -1,15 +1,14 @@
 'use client';
 
-import { NormalButton } from '@/components/ui-parts/buttons/NormalButton';
+import { Button } from '@/components/ui/button';
 import { GAME_STATUS, GameStatus } from '@/features/othello/common';
 import { OthelloController } from '@/features/othello/components/controller';
 import { useOthelloInitState, useOthelloState } from '@/features/othello/hooks/hooks';
 
-export const OthelloGameController = () => {
+export const OthelloGameStarter = () => {
   const { othelloState, setOthelloState } = useOthelloState();
   const { initState } = useOthelloInitState();
   const controller = new OthelloController();
-  console.log(othelloState);
 
   const handleStart = async () => {
     try {
@@ -37,28 +36,28 @@ export const OthelloGameController = () => {
   };
 
   return (
-    <div className='flex justify-between items-center gap-4'>
-      <div className='flex items-center gap-4'>
-        <div>
-          <input type='radio' name='turn' id='sente' />
-          <label htmlFor='sente'>先手</label>
-        </div>
-        <div>
-          <input type='radio' name='turn' id='gote' />
-          <label htmlFor='gote'>後手</label>
-        </div>
-      </div>
+    <>
       {othelloState.gameState === GAME_STATUS.STARTING ? (
-        <NormalButton clickHandler={() => handleChangeStatus(GAME_STATUS.PAUSE)}>
+        <Button
+          className='w-24'
+          variant='destructive'
+          onClick={() => handleChangeStatus(GAME_STATUS.PAUSE)}
+        >
           一時停止
-        </NormalButton>
+        </Button>
       ) : othelloState.gameState === GAME_STATUS.PAUSE ? (
-        <NormalButton clickHandler={() => handleChangeStatus(GAME_STATUS.STARTING)}>
+        <Button
+          className='w-24'
+          variant='outline'
+          onClick={() => handleChangeStatus(GAME_STATUS.STARTING)}
+        >
           再開
-        </NormalButton>
+        </Button>
       ) : (
-        <NormalButton clickHandler={() => handleStart()}>対戦開始</NormalButton>
+        <Button className='w-24' variant='outline' onClick={() => handleStart()}>
+          対戦開始
+        </Button>
       )}
-    </div>
+    </>
   );
 };

@@ -1,5 +1,5 @@
 'use client';
-import { NormalButton } from '@/components/ui-parts/buttons/NormalButton';
+import { NormalButton } from '@/components/layouts/ui-parts/buttons/NormalButton';
 import { useState } from 'react';
 
 export const WordGenerator = () => {

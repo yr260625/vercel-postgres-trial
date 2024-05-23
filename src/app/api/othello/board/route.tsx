@@ -3,10 +3,8 @@ import { ATransactionHandler } from '@/app/api/transaction-interface';
 import { GameTurnVal, BaseErrorType } from '@/features/othello/common';
 import { ApplicationError } from '@/features/othello/common/error/application-error';
 import { DomainError } from '@/features/othello/common/error/domain-error';
-import { GameRepostitory } from '@/features/othello/infrastructure/game-repository';
 import { TurnRepostitory } from '@/features/othello/infrastructure/turn-repository';
 import { PlaySoloGame } from '@/features/othello/usecases/playSoloGame';
-import { StartGameUsecase } from '@/features/othello/usecases/startGameUsecase';
 import { IDB } from '@/libs/databases/interfaces';
 import { NextResponse } from 'next/server';
 

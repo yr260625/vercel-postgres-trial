@@ -62,7 +62,6 @@ export default function ImagePostModal({ isOpen, closeModal }: ImagePostProps) {
   // save button
   const handleSaveButton: SubmitHandler<InputProps> = async (data: InputProps) => {
     try {
-      console.log(data);
       const result = await uploadImage({
         title: data.title,
         description: data.description,
