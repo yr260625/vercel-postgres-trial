@@ -46,15 +46,11 @@ export const OthelloGameStarter = () => {
           一時停止
         </Button>
       ) : othelloState.gameState === GAME_STATUS.PAUSE ? (
-        <Button
-          className='w-24'
-          variant='outline'
-          onClick={() => handleChangeStatus(GAME_STATUS.STARTING)}
-        >
+        <Button className='w-24' onClick={() => handleChangeStatus(GAME_STATUS.STARTING)}>
           再開
         </Button>
       ) : (
-        <Button className='w-24' variant='outline' onClick={() => handleStart()}>
+        <Button className='w-24' onClick={() => handleStart()}>
           対戦開始
         </Button>
       )}

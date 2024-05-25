@@ -1,5 +1,5 @@
 'use client';
-import { NormalButton } from '@/components/layouts/ui-parts/buttons/NormalButton';
+import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 export const WordGenerator = () => {
@@ -24,7 +24,7 @@ export const WordGenerator = () => {
               readOnly
             ></textarea>
           </div>
-          <NormalButton clickHandler={generateToughWord}>生成</NormalButton>
+          <Button onClick={generateToughWord}>生成</Button>
         </section>
       </div>
     </>

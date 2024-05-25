@@ -1,6 +1,6 @@
 'use client';
 
-import { NormalButton } from '@/components/layouts/ui-parts/buttons/NormalButton';
+import { Button } from '@/components/ui/button';
 import ImagePostModal from '@/features/image-uploader/components/ImagePost/ImagePostModal';
 import { useState } from 'react';
 
@@ -10,7 +10,7 @@ export const ImagePost = () => {
 
   return (
     <div className='pb-2'>
-      <NormalButton clickHandler={() => setIsOpen(true)}>画像投稿</NormalButton>
+      <Button onClick={() => setIsOpen(true)}>画像投稿</Button>
       <ImagePostModal isOpen={isOpen} closeModal={closeModal}></ImagePostModal>
     </div>
   );
