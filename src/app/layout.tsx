@@ -1,4 +1,4 @@
-import { PageLayout } from '@/components/layouts/page/PageLayout';
+import { PageLayout } from '@/components/layouts/page';
 import './globals.css';
 import { Inter } from 'next/font/google';
 

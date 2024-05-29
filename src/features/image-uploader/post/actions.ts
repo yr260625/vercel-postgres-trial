@@ -1,5 +1,5 @@
-"use server";
-import { QueryResult, QueryResultRow, sql } from "@vercel/postgres";
+'use server';
+import { createDbClient } from '@/libs/databases/postgres';
 
 type uploadedImage = {
   title: string;
@@ -16,14 +16,13 @@ export async function uploadImage({
   title,
   description,
   dataUrl,
-}: uploadedImage): Promise<QueryResult<QueryResultRow>> {
-  const data =
-    await sql`insert into uploaded_images(id, title, thumbnail, description, created_at) values (
-    ${crypto.randomUUID()},
-    ${title},
-    ${dataUrl},
-    ${description},
-    current_timestamp
-  )`;
+}: uploadedImage): Promise<any> {
+  const db = await createDbClient();
+  const data = await db.execute(
+    `insert into 
+    uploaded_images(id, title, thumbnail, description, created_at)
+    values ($1, $2, $3, $4, current_timestamp)`,
+    [crypto.randomUUID(), title, dataUrl, description]
+  );
   return data;
 }

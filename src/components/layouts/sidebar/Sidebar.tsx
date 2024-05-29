@@ -17,10 +17,9 @@ export const Sidebar = () => {
       <div className='flex flex-1 flex-col overflow-y-auto'>
         {urlList.map(({ href, name }, idx) => {
           return (
-            <Button asChild variant={'link'}>
+            <Button asChild variant={'link'} key={idx}>
               <Link
                 href={href}
-                key={idx}
                 className='flex items-center justify-center h-12'
                 prefetch={false}
               >

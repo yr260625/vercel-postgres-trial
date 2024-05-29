@@ -9,7 +9,7 @@ export const ImageCard = ({ id, title, thumbnail, description }: UploadedImagePr
       <div className='max-w-[240px] group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]'>
         <div className='p-4'>
           <Image
-            src={thumbnail}
+            src={thumbnail || '/no-image.svg'}
             alt='No Image'
             width={50}
             height={50}

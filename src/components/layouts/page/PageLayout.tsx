@@ -1,6 +1,6 @@
-import { Footer } from '@/components/layouts/footer/Footer';
-import { Header } from '@/components/layouts/header/Header';
-import { Sidebar } from '@/components/layouts/sidebar/Sidebar';
+import { Footer } from '@/components/layouts/footer';
+import { Header } from '@/components/layouts/header';
+import { Sidebar } from '@/components/layouts/sidebar';
 import { FC, memo, ReactNode } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 

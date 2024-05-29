@@ -112,10 +112,12 @@ export const GAME_STATUS = {
   END: '終了',
 } as const;
 export type GameStatus = (typeof GAME_STATUS)[keyof typeof GAME_STATUS];
+
 ```
 
-* tailwindからshadcn/uiに変更
+FormDescriptionの中にdiv要素を入れるとvalidateDOMNestingエラーが発生するため使用しない
+
+
 * 画面修正
 * レスポンスコード修正
 * Jest
-* 
