@@ -1,22 +1,43 @@
 import { IDB } from '@/libs/databases/interfaces';
-import { VercelPoolClient, createPool } from '@vercel/postgres';
-const pool = createPool({
-  idleTimeoutMillis: 10000,
-  allowExitOnIdle: true,
-});
+import { createPool } from '@vercel/postgres';
+import { Pool, PoolClient } from 'pg';
+
+/**
+ * Constructs a new pool instance.
+ *
+ * @static
+ * @returns {Pool}
+ */
+class PoolFactory {
+  static create(): Pool {
+    return String(process.env.NODE_ENV) === 'development'
+      ? new Pool({
+          connectionString: String(process.env.POSTGRES_URL),
+          idleTimeoutMillis: 10000,
+          allowExitOnIdle: true,
+        })
+      : createPool({
+          connectionString: String(process.env.POSTGRES_URL),
+          idleTimeoutMillis: 10000,
+          allowExitOnIdle: true,
+        });
+  }
+}
 
 /**
  * '@vercel/postgres'をラッピングしたクラス
+ * ローカルでは'node-postgres'を使用する
  */
-class VerecelPostgres implements IDB {
-  private client!: VercelPoolClient;
+class Postgres implements IDB {
+  private client!: PoolClient;
+  private pool = PoolFactory.create();
 
   /**
    * コネクション確立
    * @return {Promise<void>}
    */
   async connect(): Promise<void> {
-    this.client = await pool.connect();
+    this.client = await this.pool.connect();
   }
 
   /**
@@ -70,7 +91,7 @@ class VerecelPostgres implements IDB {
  * @return {Promise<DB>}
  */
 export const createDbClient = async (): Promise<IDB> => {
-  const client = new VerecelPostgres();
+  const client = new Postgres();
   await client.connect();
   return client;
 };

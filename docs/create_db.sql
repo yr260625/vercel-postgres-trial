@@ -1,3 +1,14 @@
+drop table if exists uploaded_images;
+create table uploaded_images (
+  id uuid not null
+  , title character varying(100)
+  , thumbnail text
+  , description text
+  , created_at timestamp
+  , updated_at timestamp
+  , primary key (id)
+);
+
 drop table if exists othello_games;
 create table othello_games (
   id serial not null
