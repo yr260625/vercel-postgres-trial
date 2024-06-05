@@ -5,7 +5,7 @@ import { ApplicationError } from '@/features/othello/common/error/application-er
 import { DomainError } from '@/features/othello/common/error/domain-error';
 import { TurnRepostitory } from '@/features/othello/infrastructure/turn-repository';
 import { PlaySoloGame } from '@/features/othello/usecases/playSoloGame';
-import { IDB } from '@/libs/databases/interfaces';
+import { IDB } from '@/lib/databases/interfaces';
 import { NextResponse } from 'next/server';
 
 export type RequestBody = {

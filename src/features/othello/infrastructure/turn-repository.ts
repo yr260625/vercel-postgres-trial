@@ -6,7 +6,7 @@ import { Point } from '@/features/othello/domain/point';
 import { Turn } from '@/features/othello/domain/turn';
 import { BoardGateway } from '@/features/othello/infrastructure/gateway/board-gateway';
 import { TurnGateway } from '@/features/othello/infrastructure/gateway/turn-gateway';
-import { IDB } from '@/libs/databases/interfaces';
+import { IDB } from '@/lib/databases/interfaces';
 
 export class TurnRepostitory implements ITurnRepostitory {
   private turnGateway = new TurnGateway(this.db);

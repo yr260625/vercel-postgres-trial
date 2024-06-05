@@ -1,5 +1,5 @@
-import { IDB } from '@/libs/databases/interfaces';
-import { createDbClient } from '@/libs/databases/postgres';
+import { IDB } from '@/lib/databases/interfaces';
+import { createDbClient } from '@/lib/databases/postgres';
 
 /**
  * トランザクション処理テンプレートクラス

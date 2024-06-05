@@ -1,5 +1,5 @@
 import { GameStatus } from '@/features/othello/common';
-import { IDB } from '@/libs/databases/interfaces';
+import { IDB } from '@/lib/databases/interfaces';
 
 export class GameGateway {
   constructor(private readonly db: IDB) {}

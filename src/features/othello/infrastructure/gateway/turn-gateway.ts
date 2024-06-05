@@ -1,4 +1,4 @@
-import { IDB } from '@/libs/databases/interfaces';
+import { IDB } from '@/lib/databases/interfaces';
 
 export class TurnGateway {
   constructor(private readonly db: IDB) {}

@@ -1,5 +1,5 @@
 import { ImageGateway } from '@/features/image-uploader/infrastructure/gateway/image-gateway';
-import { IDB } from '@/libs/databases/interfaces';
+import { IDB } from '@/lib/databases/interfaces';
 
 export type ImageRecord = {
   id: string;

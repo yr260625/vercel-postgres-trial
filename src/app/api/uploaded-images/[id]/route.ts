@@ -5,7 +5,7 @@ import {
   ImageRepostitory,
 } from '@/features/image-uploader/infrastructure/image-repository';
 import { BaseErrorType } from '@/features/othello/common';
-import { IDB } from '@/libs/databases/interfaces';
+import { IDB } from '@/lib/databases/interfaces';
 import { NextResponse } from 'next/server';
 
 type ResponseBody = ImageRecord;

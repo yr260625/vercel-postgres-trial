@@ -1,5 +1,5 @@
 'use server';
-import { createDbClient } from '@/libs/databases/postgres';
+import { createDbClient } from '@/lib/databases/postgres';
 
 type uploadedImage = {
   title: string;

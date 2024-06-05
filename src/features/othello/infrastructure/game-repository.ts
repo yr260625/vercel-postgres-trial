@@ -5,7 +5,7 @@ import { BoardGateway } from '@/features/othello/infrastructure/gateway/board-ga
 import { GameGateway } from '@/features/othello/infrastructure/gateway/game-gateway';
 import { TurnGateway } from '@/features/othello/infrastructure/gateway/turn-gateway';
 
-import { IDB } from '@/libs/databases/interfaces';
+import { IDB } from '@/lib/databases/interfaces';
 
 export class GameRepostitory implements IGameRepostitory {
   private gameGateway = new GameGateway(this.db);

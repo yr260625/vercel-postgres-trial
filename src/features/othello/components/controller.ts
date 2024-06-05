@@ -1,6 +1,6 @@
 import { ResponseBody } from '@/app/api/othello/board/route';
 import { GameStatus, GameTurnVal } from '@/features/othello/common';
-import { Api } from '@/libs/api/axios-config';
+import { Api } from '@/lib/api/axios-config';
 
 export class OthelloController {
   /**

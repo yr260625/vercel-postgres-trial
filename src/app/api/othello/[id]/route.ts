@@ -5,7 +5,7 @@ import { ApplicationError } from '@/features/othello/common/error/application-er
 import { DomainError } from '@/features/othello/common/error/domain-error';
 import { GameRepostitory } from '@/features/othello/infrastructure/game-repository';
 import { ModifyGameStatus } from '@/features/othello/usecases/modifyGameStatus';
-import { IDB } from '@/libs/databases/interfaces';
+import { IDB } from '@/lib/databases/interfaces';
 import { NextResponse } from 'next/server';
 
 type RequestBody = {

@@ -1,5 +1,5 @@
 import { ImageCard } from '@/features/image-uploader/components/ImageCard';
-import { Api } from '@/libs/api/axios-config';
+import { Api } from '@/lib/api/axios-config';
 
 export type UploadedImageProps = {
   id: string;

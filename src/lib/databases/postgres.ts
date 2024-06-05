@@ -1,4 +1,4 @@
-import { IDB } from '@/libs/databases/interfaces';
+import { IDB } from '@/lib/databases/interfaces';
 import { createPool } from '@vercel/postgres';
 import { Pool, PoolClient } from 'pg';
 

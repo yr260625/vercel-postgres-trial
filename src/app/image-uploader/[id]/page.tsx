@@ -1,6 +1,6 @@
 import { ImageDetail } from '@/features/image-uploader/components/ImageDetail/ImageDetail';
 import { UploadedImageProps } from '@/features/image-uploader/components/ImageList';
-import { Api } from '@/libs/api/axios-config';
+import { Api } from '@/lib/api/axios-config';
 
 // build時のfetch error回避
 export const dynamic = 'force-dynamic';
