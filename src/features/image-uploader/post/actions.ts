@@ -17,12 +17,14 @@ export async function uploadImage({
   description,
   dataUrl,
 }: uploadedImage): Promise<any> {
+  type Row = { id: string };
   const db = await createDbClient();
-  const data = await db.execute(
+  const data = await db.execute<Row>(
     `insert into 
     uploaded_images(id, title, thumbnail, description, created_at)
-    values ($1, $2, $3, $4, current_timestamp)`,
+    values ($1, $2, $3, $4, current_timestamp)
+    returning id`,
     [crypto.randomUUID(), title, dataUrl, description]
   );
-  return data;
+  return data[0].id;
 }
