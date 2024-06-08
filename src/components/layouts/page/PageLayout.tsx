@@ -6,23 +6,17 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 export const PageLayout: FC<{ children: ReactNode }> = memo(function PageLayout({ children }) {
   return (
-    <div className='flex flex-col relative h-screen'>
-      <div className='sticky top-0 z-50'>
-        <Header></Header>
-      </div>
+    <div className='h-screen overflow-y-scroll'>
+      <Header></Header>
       <div className='flex'>
         <div className='h-full hidden sm:block fixed sm:static'>
           <ScrollArea className='h-screen w-48 rounded-md'>
             <Sidebar></Sidebar>
           </ScrollArea>
         </div>
-        <ScrollArea className='flex-1 h-screen rounded-md'>
-          <main className='h-full max-w-7xl p-4 bg-opacity-10 xl:m-auto'>{children}</main>
-        </ScrollArea>
+        <main className='h-full max-w-7xl p-4 bg-opacity-10 xl:m-auto'>{children}</main>
       </div>
-      <div className='sticky bottom-0 z-50'>
-        <Footer></Footer>
-      </div>
+      <Footer></Footer>
     </div>
   );
 });

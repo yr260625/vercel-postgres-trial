@@ -21,7 +21,7 @@ type LayoutProps = {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang='ja'>
-      <body className={inter.variable}>
+      <body className={`${inter.variable}`}>
         <PageLayout>{children}</PageLayout>
       </body>
     </html>
