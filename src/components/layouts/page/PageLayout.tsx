@@ -6,9 +6,9 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 export const PageLayout: FC<{ children: ReactNode }> = memo(function PageLayout({ children }) {
   return (
-    <div className='h-screen overflow-y-scroll'>
+    <div className='flex flex-col h-screen overflow-y-scroll'>
       <Header></Header>
-      <div className='flex'>
+      <div className='flex flex-1'>
         <div className='h-full hidden sm:block fixed sm:static'>
           <ScrollArea className='h-screen w-48 rounded-md'>
             <Sidebar></Sidebar>
