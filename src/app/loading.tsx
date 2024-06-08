@@ -1,7 +1,9 @@
+import { Spinner } from '@/components/ui/spinor';
+
 export default function Loading() {
   return (
-    <div className="flex justify-center items-center h-screen font-bold">
-      Loading...
+    <div className='absolute inset-0 flex items-center justify-center bg-slate-400 bg-opacity-20'>
+      <Spinner size='medium' />
     </div>
   );
 }
