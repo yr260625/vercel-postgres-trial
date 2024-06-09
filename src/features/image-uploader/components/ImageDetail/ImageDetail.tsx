@@ -1,7 +1,7 @@
-import { UploadedImageProps } from '@/features/image-uploader/components/ImageList';
+import { ImageCardProps } from '@/features/image-uploader/components/ImageCard';
 import Image from 'next/image';
 
-export const ImageDetail = (props: UploadedImageProps) => {
+export const ImageDetail = (props: ImageCardProps) => {
   return (
     <div className='p-4'>
       <h3 className='text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white'>

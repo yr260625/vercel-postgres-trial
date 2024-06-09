@@ -1,13 +1,13 @@
+import { ImageCardProps } from '@/features/image-uploader/components/ImageCard';
 import { ImageDetail } from '@/features/image-uploader/components/ImageDetail/ImageDetail';
-import { UploadedImageProps } from '@/features/image-uploader/components/ImageList';
 import { Api } from '@/lib/api/axios-config';
 
 // build時のfetch error回避
 export const dynamic = 'force-dynamic';
 
-const getData = async (id: string): Promise<UploadedImageProps | void> => {
+const getData = async (id: string): Promise<ImageCardProps | void> => {
   try {
-    const response = await Api.get<UploadedImageProps>(
+    const response = await Api.get<ImageCardProps>(
       `${process.env.MY_SERVER}/api/uploaded-images/${id}`
     );
     return response.data;
