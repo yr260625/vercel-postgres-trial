@@ -4,7 +4,7 @@ import { createDbClient } from '@/lib/databases/postgres';
 type uploadedImage = {
   title: string;
   description: string;
-  dataUrl: string;
+  thumbnail: string;
 };
 
 /**
@@ -15,7 +15,7 @@ type uploadedImage = {
 export async function uploadImage({
   title,
   description,
-  dataUrl,
+  thumbnail,
 }: uploadedImage): Promise<any> {
   type Row = { id: string };
   const db = await createDbClient();
@@ -24,7 +24,7 @@ export async function uploadImage({
     uploaded_images(id, title, thumbnail, description, created_at)
     values ($1, $2, $3, $4, current_timestamp)
     returning id`,
-    [crypto.randomUUID(), title, dataUrl, description]
+    [crypto.randomUUID(), title, thumbnail, description]
   );
   return data[0].id;
 }

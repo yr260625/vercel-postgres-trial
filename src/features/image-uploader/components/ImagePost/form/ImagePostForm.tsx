@@ -1,60 +1,14 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { ControllerRenderProps, useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { z } from 'zod';
-import { uploadImage } from '@/features/image-uploader/post/actions';
-import { useDataUrl } from '@/features/image-uploader/components/ImagePost/form/useDataUrl';
 import { FormFieldWrapper } from '@/components/layouts/form/FormFieldWrapper';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { ControllerRenderProps } from 'react-hook-form';
+import { useImagePostForm } from './useImagePostForm';
+import type { FormData } from './useImagePostForm';
 
 export const ImagePostForm = () => {
-  const router = useRouter();
-  const { dataUrl, handleChangeImage } = useDataUrl();
-
-  const formSchema = z.object({
-    title: z.string().min(1, {
-      message: 'image title must be at least 1 characters.',
-    }),
-    description: z.string().min(1, {
-      message: 'description must be at least 1 characters.',
-    }),
-    thumbnail: z.string(),
-  });
-
-  // Define form.
-  type FormData = z.infer<typeof formSchema>;
-
-  const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: '',
-      description: '',
-      thumbnail: '',
-    },
-  });
-
-  // Define a form submit handler.
-  const onSubmit = async (values: FormData) => {
-    try {
-      const result = await uploadImage({
-        title: values.title,
-        description: values.description,
-        dataUrl,
-      });
-
-      // 成功時、modalを閉じる
-      if (result) {
-        router.push('/image-uploader');
-        router.refresh();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+  const { form, onSubmit, handleChangeImage } = useImagePostForm();
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
@@ -84,8 +38,18 @@ export const ImagePostForm = () => {
           control={form.control}
           name={'thumbnail'}
           label={'thumbnail'}
-          children={() => {
-            return <Input type='file' onChange={(event) => handleChangeImage(event)} />;
+          children={(field: ControllerRenderProps<FormData>) => {
+            const { value, onChange, ...fieldProps } = field;
+            return (
+              <Input
+                type='file'
+                {...fieldProps}
+                onChange={async (event) => {
+                  const dataUrl = await handleChangeImage(event);
+                  onChange(dataUrl);
+                }}
+              />
+            );
           }}
         ></FormFieldWrapper>
         <Button type='submit'>Submit</Button>
