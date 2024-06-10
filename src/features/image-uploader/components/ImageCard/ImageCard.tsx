@@ -23,7 +23,7 @@ export const ImageCard = ({ id, title, thumbnail, description }: ImageCardProps)
       <Card>
         <CardHeader>
           <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+          <CardDescription className='truncate'>{description}</CardDescription>
         </CardHeader>
         <CardContent>
           <Image

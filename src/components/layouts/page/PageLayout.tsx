@@ -14,7 +14,7 @@ export const PageLayout: FC<{ children: ReactNode }> = memo(function PageLayout(
             <Sidebar></Sidebar>
           </ScrollArea>
         </div>
-        <main className='h-full max-w-7xl p-4 bg-opacity-10 xl:m-auto'>{children}</main>
+        <main className='h-full w-full max-w-7xl p-4 bg-opacity-10 xl:m-auto'>{children}</main>
       </div>
       <Footer></Footer>
     </div>
