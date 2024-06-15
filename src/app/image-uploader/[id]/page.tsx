@@ -1,3 +1,4 @@
+import { ImageResponse } from '@/app/api/uploaded-images/[id]/route';
 import {
   ImageDetailProps,
   ImageDetail,
@@ -7,7 +8,7 @@ import { Api } from '@/lib/api/axios-config';
 // build時のfetch error回避
 export const dynamic = 'force-dynamic';
 
-const getData = async (id: string): Promise<ImageDetailProps | void> => {
+const getData = async (id: string): Promise<ImageResponse | void> => {
   try {
     const response = await Api.get<ImageDetailProps>(
       `${process.env.MY_SERVER}/api/uploaded-images/${id}`
@@ -23,5 +24,5 @@ export default async function Id({ params }: { params: { id: string } }) {
   if (image) {
     return <ImageDetail {...image}></ImageDetail>;
   }
-  return <div>nothing!</div>;
+  return <div>no image!!</div>;
 }

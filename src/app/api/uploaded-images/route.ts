@@ -8,9 +8,9 @@ import { BaseErrorType } from '@/features/othello/common';
 import { IDB } from '@/lib/databases/interfaces';
 import { NextResponse } from 'next/server';
 
-type ResponseBody = ImageRecord[];
+export type AllImageResponse = { images: ImageRecord[] };
 type BaseResponseType<T, V> = [T | V, { status: number }];
-type ResponseType = BaseResponseType<ResponseBody, BaseErrorType>;
+type ResponseType = BaseResponseType<AllImageResponse, BaseErrorType>;
 
 export async function GET() {
   const handler = new GetTransactionHandler();
@@ -29,7 +29,7 @@ class GetTransactionHandler extends ATransactionHandler {
   async execute(db: IDB): Promise<ResponseType> {
     const imageRepo = new ImageRepostitory(db);
     const res = await imageRepo.findAll();
-    return [res, { status: 200 }];
+    return [{ images: res }, { status: 200 }];
   }
 
   /**

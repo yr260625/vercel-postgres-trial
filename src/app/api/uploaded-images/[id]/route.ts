@@ -8,9 +8,9 @@ import { BaseErrorType } from '@/features/othello/common';
 import { IDB } from '@/lib/databases/interfaces';
 import { NextResponse } from 'next/server';
 
-type ResponseBody = ImageRecord;
+export type ImageResponse = ImageRecord;
 type BaseResponseType<T, V> = [T | V, { status: number }];
-type ResponseType = BaseResponseType<ResponseBody, BaseErrorType>;
+type ResponseType = BaseResponseType<ImageResponse, BaseErrorType>;
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   const id = params.id;

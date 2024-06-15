@@ -4,17 +4,97 @@ info:
   title: vercel-postgres-trial
   version: 1.0.0
 
-  
 servers: 
   - url: http://localhost:3000
     description: 開発環境
 
+tags:
+  - name: image-uploader
+    description: 画像アップロード
+  - name: othello
+    description: オセロゲーム
+
 paths:
+  /api/uploaded-images:
+    get:
+      tags:
+        - image-uploader
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  images: 
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        title:
+                          type: string
+                        thumbnail:
+                          type: string
+                        description:
+                          type: string
+                        created_at:
+                          type: string
+                        updated_at:
+                          type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/uploaded-images/{id}:
+    get:
+      tags:
+        - image-uploader
+      parameters:
+        - name: id
+          in: path
+          description: image id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  thumbnail:
+                    type: string
+                  description:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /api/othello:
     post:
+      tags:
+        - othello
       responses:
-        201:
-          description: Created
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -22,8 +102,29 @@ paths:
                 properties:
                   gameId:
                     type: number
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/othello/{gameId}:
     put:
+      tags:
+        - othello
+      parameters:
+        - name: gameId
+          in: path
+          description: game id
+          required: true
+          schema:
+            type: number
       requestBody:
         content:
             application/json:
@@ -31,13 +132,27 @@ paths:
                 type: object
                 properties:
                   status:
-                    type: number
+                    type: string
       responses:
-        204:
-          description: No Content
-
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/othello/board:
     post:
+      tags:
+        - othello
       requestBody:
         content:
           application/json:
@@ -60,8 +175,8 @@ paths:
                   type: number
                   example: 5
       responses:
-        201:
-          description: Created
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -89,4 +204,26 @@ paths:
                   winner:
                     type: string
                     example: ""
- 
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        type:
+          type: string
+        message:
+          type: string
