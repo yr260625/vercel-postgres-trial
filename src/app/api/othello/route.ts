@@ -4,17 +4,16 @@ import { BaseErrorType } from '@/features/othello/common';
 import { ApplicationError } from '@/features/othello/common/error/application-error';
 import { DomainError } from '@/features/othello/common/error/domain-error';
 import { GameRepostitory } from '@/features/othello/infrastructure/game-repository';
-import { TurnRepostitory } from '@/features/othello/infrastructure/turn-repository';
 import { StartGameUsecase } from '@/features/othello/usecases/startGameUsecase';
 import { IDB } from '@/lib/databases/interfaces';
 import { NextResponse } from 'next/server';
 
-export type ResponseBody = {
+export type StartGameResponse = {
   gameId: number;
 };
 
 type BaseResponseType<T, V> = [T | V, { status: number }];
-type ResponseType = BaseResponseType<ResponseBody, BaseErrorType>;
+type ResponseType = BaseResponseType<StartGameResponse, BaseErrorType>;
 
 /**
  * 対戦開始時に呼び出されるリクエスト
@@ -39,7 +38,6 @@ class PostTransactionHandler extends ATransactionHandler {
    */
   async execute(db: IDB): Promise<ResponseType> {
     const gameRepo = new GameRepostitory(db);
-    const turnRepo = new TurnRepostitory(db);
     const usecases = new StartGameUsecase(gameRepo);
     const res = await usecases.run();
     return [res, { status: 200 }];

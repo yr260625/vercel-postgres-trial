@@ -1,6 +1,7 @@
+import { ApplicationError } from '@/features/othello/common/error/application-error';
 import { IDB } from '@/lib/databases/interfaces';
 import { createPool } from '@vercel/postgres';
-import { Pool, PoolClient } from 'pg';
+import { Pool, PoolClient, QueryResultRow } from 'pg';
 
 /**
  * Constructs a new pool instance.
@@ -49,8 +50,19 @@ class Postgres implements IDB {
    * @param {?Array<number | string>} [params]
    * @returns {Promise<T[]>}
    */
-  async execute<T>(query: string, params?: Array<number | string>): Promise<T[]> {
-    return (await this.client.query(query, params)).rows;
+  async execute<T extends QueryResultRow>(
+    query: string,
+    params?: Array<number | string>
+  ): Promise<T[]> {
+    try {
+      const response = await this.client.query<T>(query, params);
+      return response.rows;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new ApplicationError('FailureQueryExecution', error.message);
+      }
+      return [];
+    }
   }
 
   /**

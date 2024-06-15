@@ -1,7 +1,6 @@
 import { ResponseBody } from '@/app/api/othello/board/route';
 import { GameTurnVal } from '@/features/othello/common';
 import { ITurnRepostitory } from '@/features/othello/domain/interfaces/turn-repository';
-import { Turn } from '@/features/othello/domain/turn';
 
 export class PlaySoloGame {
   constructor(private readonly turnRepo: ITurnRepostitory) {}
@@ -37,7 +36,7 @@ export class PlaySoloGame {
     const nextTurn = currentTurn.createNextTurn();
 
     // DB更新
-    this.turnRepo.save(nextTurn);
+    await this.turnRepo.save(nextTurn);
 
     // 勝者取得
     const winner = nextTurn.judgeWinner();

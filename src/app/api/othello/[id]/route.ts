@@ -12,12 +12,12 @@ type RequestBody = {
   status: GameStatus;
 };
 
-type ResponseBody = {
+export type ChangeGameStatusResponse = {
   status: GameStatus;
 };
 
 type BaseResponseType<T, V> = [T | V, { status: number }];
-type ResponseType = BaseResponseType<ResponseBody, BaseErrorType>;
+type ResponseType = BaseResponseType<ChangeGameStatusResponse, BaseErrorType>;
 
 /**
  * オセロゲームの状態更新時に呼び出されるリクエスト
