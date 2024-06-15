@@ -12,19 +12,13 @@ export const ImagePostForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-        <FormFieldWrapper
-          control={form.control}
-          name={'title'}
-          label={'title'}
-          children={(field: ControllerRenderProps<FormData>) => {
+        <FormFieldWrapper control={form.control} name={'title'} label={'title'}>
+          {(field: ControllerRenderProps<FormData>) => {
             return <Input type={'text'} placeholder={'title'} {...field} />;
           }}
-        ></FormFieldWrapper>
-        <FormFieldWrapper
-          control={form.control}
-          name={'description'}
-          label={'descrptioon'}
-          children={(field: ControllerRenderProps<FormData>) => {
+        </FormFieldWrapper>
+        <FormFieldWrapper control={form.control} name={'description'} label={'descrptioon'}>
+          {(field: ControllerRenderProps<FormData>) => {
             return (
               <Textarea
                 placeholder={'description'}
@@ -33,12 +27,9 @@ export const ImagePostForm = () => {
               ></Textarea>
             );
           }}
-        ></FormFieldWrapper>
-        <FormFieldWrapper
-          control={form.control}
-          name={'thumbnail'}
-          label={'thumbnail'}
-          children={(field: ControllerRenderProps<FormData>) => {
+        </FormFieldWrapper>
+        <FormFieldWrapper control={form.control} name={'thumbnail'} label={'thumbnail'}>
+          {(field: ControllerRenderProps<FormData>) => {
             const { value, onChange, ...fieldProps } = field;
             return (
               <Input
@@ -51,7 +42,7 @@ export const ImagePostForm = () => {
               />
             );
           }}
-        ></FormFieldWrapper>
+        </FormFieldWrapper>
         <Button type='submit'>Submit</Button>
       </form>
     </Form>
