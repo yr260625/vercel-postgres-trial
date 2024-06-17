@@ -17,10 +17,25 @@ export type ImageCardProps = {
   updated_at: string;
 };
 
-export const ImageCard = ({ id, title, thumbnail, description }: ImageCardProps) => {
+/**
+ * 画像をカード形式で表示
+ *
+ * @param {ImageCardProps} props
+ * @param {string} props.id
+ * @param {string} props.title
+ * @param {string} props.thumbnail
+ * @param {string} props.description
+ * @returns {JSX.Element}
+ */
+export const ImageCard = ({
+  id,
+  title,
+  thumbnail,
+  description,
+}: ImageCardProps): JSX.Element => {
   return (
-    <Link href={`/image-uploader/${id}`} className='max-w-fit'>
-      <Card>
+    <Link href={`/image-uploader/${id}`}>
+      <Card className='max-w-xs hover:bg-slate-200'>
         <CardHeader>
           <CardTitle>{title}</CardTitle>
           <CardDescription className='truncate'>{description}</CardDescription>

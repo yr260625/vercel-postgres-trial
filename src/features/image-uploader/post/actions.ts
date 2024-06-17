@@ -9,8 +9,14 @@ type uploadedImage = {
 
 /**
  * 画像アップロード
- * @param param0: uploadedImage
- * @returns: Promise<QueryResult<QueryResultRow>>
+ *
+ * @export
+ * @async
+ * @param {uploadedImage} props
+ * @param {string} props.title
+ * @param {string} props.description
+ * @param {string} props.thumbnail
+ * @returns {Promise<QueryResult<QueryResultRow>>}
  */
 export async function uploadImage({
   title,

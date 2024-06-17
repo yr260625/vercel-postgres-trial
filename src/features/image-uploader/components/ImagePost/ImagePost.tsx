@@ -10,10 +10,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { ControllerRenderProps } from 'react-hook-form';
 import { useImagePostForm } from './useImagePostForm';
 import type { FormData } from './useImagePostForm';
+import { useImageChangeHandler } from './useImageChangeHandler';
 
-export const ImagePost = () => {
+/**
+ * 画像投稿用モーダル
+ *
+ * @returns {JSX.Element}
+ */
+export const ImagePost = (): JSX.Element => {
   const [open, setOpen] = useState(false);
-  const { form, onSubmit, handleChangeImage } = useImagePostForm();
+  const { form, onSubmit } = useImagePostForm();
+  const { handleChangeImage } = useImageChangeHandler();
   return (
     <div className='pb-2'>
       <ModalDialog

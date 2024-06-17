@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { uploadImage } from '@/features/image-uploader/post/actions';
 
-// Define form data.
+/**
+ * 投稿画像フォームデータ
+ */
 const formSchema = z.object({
   title: z.string().min(1, {
     message: 'image title must be at least 1 characters.',
@@ -16,6 +18,9 @@ const formSchema = z.object({
 });
 export type FormData = z.infer<typeof formSchema>;
 
+/**
+ * 画像投稿フォーム用hooks
+ */
 export const useImagePostForm = () => {
   const router = useRouter();
   const form = useForm<FormData>({
@@ -42,24 +47,5 @@ export const useImagePostForm = () => {
     }
   };
 
-  return { form, onSubmit, handleChangeImage };
-};
-
-// dataUrl設定
-const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  if (e.currentTarget?.files && e.currentTarget.files[0]) {
-    const targetFile: File = e.currentTarget.files[0];
-    return await blobToDataUrl(targetFile);
-  }
-  return '';
-};
-
-// blobをdataUrlに変換
-const blobToDataUrl = async (file: Blob): Promise<string> => {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = () => resolve('');
-  });
+  return { form, onSubmit };
 };

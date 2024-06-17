@@ -12,13 +12,24 @@ export type ImageDetailProps = {
   updated_at: string;
 };
 
+/**
+ * 画像詳細
+ *
+ * @param {ImageDetailProps} props
+ * @param {string} props.title
+ * @param {string} props.description
+ * @param {string} props.created_at
+ * @param {string} props.updated_at
+ * @param {string} props.thumbnail
+ * @returns {JSX.Element}
+ */
 export const ImageDetail = ({
   title,
   description,
   created_at,
   updated_at,
   thumbnail,
-}: ImageDetailProps) => {
+}: ImageDetailProps): JSX.Element => {
   return (
     <div className='flex flex-col gap-2'>
       <div>
