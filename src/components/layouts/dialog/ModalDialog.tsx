@@ -1,28 +1,33 @@
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { FC, memo, ReactNode } from 'react';
+import { Dispatch, FC, memo, ReactNode, SetStateAction } from 'react';
 
 export const ModalDialog: FC<{
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
   openButtonTitle: string;
   modalTitle: string;
-}> = memo(function ModalDialog({ children, openButtonTitle, modalTitle }) {
+}> = memo(function ModalDialog({ open, setOpen, children, openButtonTitle, modalTitle }) {
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>{openButtonTitle}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{modalTitle}</DialogTitle>
-          {children}
         </DialogHeader>
+        {children}
+        <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
   );
