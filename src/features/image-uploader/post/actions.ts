@@ -16,13 +16,13 @@ type uploadedImage = {
  * @param {string} props.title
  * @param {string} props.description
  * @param {string} props.thumbnail
- * @returns {Promise<QueryResult<QueryResultRow>>}
+ * @returns {Promise<string>}
  */
 export async function uploadImage({
   title,
   description,
   thumbnail,
-}: uploadedImage): Promise<any> {
+}: uploadedImage): Promise<string> {
   type Row = { id: string };
   const db = await createDbClient();
   const data = await db.execute<Row>(
