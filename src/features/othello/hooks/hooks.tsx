@@ -5,12 +5,12 @@ import {
   GameTurnVal,
   INIT_BOARD,
 } from '@/features/othello/common';
-import { Dispatch, SetStateAction, createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 
 /**
  * 各コンポーネント間で共有するオセロゲームの状態
  */
-type OthelloState = {
+export type OthelloState = {
   gameId: number;
   gameState: GameStatus;
   nowTurnVal: GameTurnVal;
@@ -33,13 +33,26 @@ type ProviderProps = {
 
 type OthelloContextType = {
   othelloState: OthelloState;
-  setOthelloState: Dispatch<SetStateAction<OthelloState>>;
+  setOthelloState: (newState: Partial<OthelloState>) => void;
 };
 
 const OthelloContext = createContext<OthelloContextType>({} as OthelloContextType);
 export const OthelloProvider = ({ children }: ProviderProps) => {
   const [othelloState, setOthelloState] = useState<OthelloState>(othelloInitState);
-  const value: OthelloContextType = { othelloState, setOthelloState };
+
+  // setOthelloStateをuseCallbackでメモ化する
+  const memoizedSetOthelloState = useCallback((newState: Partial<OthelloState>) => {
+    setOthelloState((prevState) => ({
+      ...prevState,
+      ...newState,
+    }));
+  }, []);
+
+  // Providerで各コンポーネントに配る
+  const value: OthelloContextType = {
+    othelloState,
+    setOthelloState: memoizedSetOthelloState,
+  };
   return <OthelloContext.Provider value={value}>{children}</OthelloContext.Provider>;
 };
 

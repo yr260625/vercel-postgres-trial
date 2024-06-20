@@ -1,12 +1,12 @@
 'use client';
-import { memo } from 'react';
+import { MouseEventHandler, memo } from 'react';
 import styles from './OthelloCell.module.css';
 import { BOARD_CELL } from '@/features/othello/common';
 
 export type OthelloCellProps = {
   boardVal: number;
   isReversible: boolean;
-  handleClick: Function;
+  handleClick: MouseEventHandler<HTMLButtonElement>;
 };
 
 export const OthelloCell = memo(({ boardVal, isReversible, handleClick }: OthelloCellProps) => {
@@ -30,7 +30,7 @@ export const OthelloCell = memo(({ boardVal, isReversible, handleClick }: Othell
         <button
           className={styles.board__cell}
           disabled={!isReversible}
-          onClick={() => handleClick()}
+          onClick={handleClick}
         ></button>
       );
   }
