@@ -1,7 +1,7 @@
 import { GAME_STATUS } from '@/features/othello/common';
-import { OthelloController } from '@/features/othello/components/controller';
 import { Board } from '@/features/othello/domain/board';
 import { OthelloState, useOthelloState } from '@/features/othello/hooks/hooks';
+import { putStone } from '@/features/othello/hooks/othello-api';
 import { useCallback } from 'react';
 
 export const useCellClick = () => {
@@ -13,8 +13,7 @@ export const useCellClick = () => {
     async (prevState: OthelloState, x: number, y: number) => {
       try {
         // 石を置く
-        const controller = new OthelloController();
-        const res = await controller.putStone(
+        const res = await putStone(
           prevState.gameId,
           prevState.nowTurnVal,
           prevState.nowTurnCount,
