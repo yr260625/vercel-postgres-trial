@@ -4,6 +4,7 @@ import { TURN_NAME } from '@/features/othello/common';
 import { useOthelloState } from '@/features/othello/hooks/provider';
 
 export const OthelloTurn = () => {
+  console.log('render OthelloTurn');
   const { othelloState } = useOthelloState();
   return (
     <div>

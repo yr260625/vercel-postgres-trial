@@ -7,38 +7,43 @@ export const useOthelloGame = () => {
   const { othelloState, setOthelloState } = useOthelloState();
 
   const handleGameStart = useCallback(async () => {
-    const start = async () => {
-      try {
-        const { gameId } = await gameStart();
-        setOthelloState({
-          ...OTHELLO_INIT_STATE,
-          gameId: Number(gameId),
-          gameState: GAME_STATUS.STARTING,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    await start();
+    try {
+      const { gameId } = await gameStart();
+      setOthelloState({
+        ...OTHELLO_INIT_STATE,
+        gameId: Number(gameId),
+        gameState: GAME_STATUS.STARTING,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }, [setOthelloState]);
 
-  const handleChangeGameStatus = useCallback(
-    async (status: GameStatus) => {
-      const changeStatus = async (status: GameStatus) => {
-        try {
-          await changeGameStatus(othelloState.gameId, status);
-          setOthelloState({
-            ...othelloState,
-            gameState: status,
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      await changeStatus(status);
-    },
-    [othelloState, setOthelloState]
-  );
+  const handleGamePause = useCallback(async () => {
+    try {
+      await changeGameStatus(othelloState.gameId, GAME_STATUS.PAUSE);
+      setOthelloState({
+        gameState: GAME_STATUS.PAUSE,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [othelloState.gameId, setOthelloState]);
 
-  return { handleGameStart, handleChangeGameStatus };
+  const handleGameRestart = useCallback(async () => {
+    try {
+      await changeGameStatus(othelloState.gameId, GAME_STATUS.STARTING);
+      setOthelloState({
+        gameState: GAME_STATUS.STARTING,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [othelloState.gameId, setOthelloState]);
+
+  return {
+    handleGameStart,
+    handleGamePause,
+    handleGameRestart,
+  };
 };

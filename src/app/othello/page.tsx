@@ -9,6 +9,7 @@ import { OthelloProvider } from '@/features/othello/hooks/provider';
 export const dynamic = 'force-dynamic';
 
 export default async function page() {
+  console.log('rendering page');
   return (
     <OthelloProvider>
       <div className='w-[600px] sm:w-auto flex flex-col justify-between items-center gap-4'>

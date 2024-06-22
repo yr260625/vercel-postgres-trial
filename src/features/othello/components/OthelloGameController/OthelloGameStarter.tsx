@@ -7,20 +7,18 @@ import { useOthelloState } from '@/features/othello/hooks/provider';
 
 export const OthelloGameStarter = () => {
   const { othelloState } = useOthelloState();
-  const { handleGameStart, handleChangeGameStatus } = useOthelloGame();
+  const { handleGameStart, handleGamePause, handleGameRestart } = useOthelloGame();
+
+  console.log('render OthelloGameStarter');
 
   return (
     <>
       {othelloState.gameState === GAME_STATUS.STARTING ? (
-        <Button
-          className='w-24'
-          variant='destructive'
-          onClick={() => handleChangeGameStatus(GAME_STATUS.PAUSE)}
-        >
+        <Button className='w-24' variant='destructive' onClick={handleGamePause}>
           一時停止
         </Button>
       ) : othelloState.gameState === GAME_STATUS.PAUSE ? (
-        <Button className='w-24' onClick={() => handleChangeGameStatus(GAME_STATUS.STARTING)}>
+        <Button className='w-24' onClick={handleGameRestart}>
           再開
         </Button>
       ) : (

@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/select';
 
 export const OthelloGameModeSelector = () => {
+  console.log('render OthelloGameModeSelector');
   return (
     <Select>
       <SelectTrigger className='w-[180px]'>
