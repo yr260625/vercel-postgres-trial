@@ -56,3 +56,24 @@ export type BaseErrorType = {
   type: string;
   message: string;
 };
+
+/**
+ * 各コンポーネント間で共有するオセロゲームの状態
+ */
+export type OthelloState = {
+  gameId: number;
+  gameState: GameStatus;
+  nowTurnVal: GameTurnVal;
+  nowTurnCount: number;
+  nowBoard: number[][];
+  winner: null | string;
+};
+
+export const OTHELLO_INIT_STATE: OthelloState = {
+  gameId: 0,
+  gameState: GAME_STATUS.BEFORE_STARTING,
+  nowTurnVal: GAME_TURN.BLACK,
+  nowTurnCount: 0,
+  nowBoard: INIT_BOARD,
+  winner: null,
+};

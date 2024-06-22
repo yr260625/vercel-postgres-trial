@@ -7,6 +7,13 @@ export const OthelloGameController = () => {
     <div className='flex justify-between items-center gap-4'>
       <OthelloGameModeSelector></OthelloGameModeSelector>
       <OthelloGameStarter></OthelloGameStarter>
+      <OtherComponent></OtherComponent>
     </div>
   );
+};
+
+const OtherComponent = () => {
+  console.log('render 全然関係ないコンポーネント');
+
+  return <p>全然関係ない</p>;
 };

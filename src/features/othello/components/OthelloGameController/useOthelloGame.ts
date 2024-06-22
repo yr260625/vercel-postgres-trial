@@ -1,18 +1,17 @@
-import { GAME_STATUS, GameStatus } from '@/features/othello/common';
-import { useOthelloState, useOthelloInitState } from '@/features/othello/hooks/hooks';
+import { GAME_STATUS, GameStatus, OTHELLO_INIT_STATE } from '@/features/othello/common';
 import { gameStart, changeGameStatus } from '@/features/othello/hooks/othello-api';
+import { useOthelloState } from '@/features/othello/hooks/provider';
 import { useCallback } from 'react';
 
 export const useOthelloGame = () => {
   const { othelloState, setOthelloState } = useOthelloState();
-  const { initState } = useOthelloInitState();
 
   const handleGameStart = useCallback(async () => {
     const start = async () => {
       try {
         const { gameId } = await gameStart();
         setOthelloState({
-          ...initState,
+          ...OTHELLO_INIT_STATE,
           gameId: Number(gameId),
           gameState: GAME_STATUS.STARTING,
         });
@@ -21,7 +20,7 @@ export const useOthelloGame = () => {
       }
     };
     await start();
-  }, [initState, setOthelloState]);
+  }, [setOthelloState]);
 
   const handleChangeGameStatus = useCallback(
     async (status: GameStatus) => {

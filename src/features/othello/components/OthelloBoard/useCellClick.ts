@@ -1,6 +1,6 @@
-import { GAME_STATUS } from '@/features/othello/common';
+import { GAME_STATUS, OthelloState } from '@/features/othello/common';
 import { Board } from '@/features/othello/domain/board';
-import { OthelloState, useOthelloState } from '@/features/othello/hooks/hooks';
+import { useOthelloState } from '@/features/othello/hooks/provider';
 import { putStone } from '@/features/othello/hooks/othello-api';
 import { useCallback } from 'react';
 
