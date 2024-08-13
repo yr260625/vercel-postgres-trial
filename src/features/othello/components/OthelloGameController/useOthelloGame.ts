@@ -1,4 +1,4 @@
-import { GAME_STATUS, GameStatus, OTHELLO_INIT_STATE } from '@/features/othello/common';
+import { GAME_STATUS, OTHELLO_INIT_STATE } from '@/features/othello/common';
 import { gameStart, changeGameStatus } from '@/features/othello/hooks/othello-api';
 import { useOthelloState } from '@/features/othello/hooks/provider';
 import { useCallback } from 'react';

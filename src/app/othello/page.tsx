@@ -8,7 +8,7 @@ import { OthelloProvider } from '@/features/othello/hooks/provider';
 // build時のfetch error回避
 export const dynamic = 'force-dynamic';
 
-export default async function page() {
+export default function page() {
   console.log('rendering page');
   return (
     <OthelloProvider>
