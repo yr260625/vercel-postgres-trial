@@ -1,20 +1,28 @@
-// build時のfetch error回避
-export const dynamic = "force-dynamic";
-import { ImageDetail } from "@/app/image-uploader/components/ImageDetail";
+import { ImageResponse } from '@/app/api/uploaded-images/[id]/route';
+import {
+  ImageDetailProps,
+  ImageDetail,
+} from '@/features/image-uploader/components/ImageDetail';
+import { Api } from '@/lib/api/axios-config';
 
-const getData = async (id: string) => {
+// build時のfetch error回避
+export const dynamic = 'force-dynamic';
+
+const getData = async (id: string): Promise<ImageResponse | void> => {
   try {
-    const response = await fetch(`${process.env.MY_SERVER}/api/uploaded-images/${id}`, {
-      cache: "no-store",
-    });
-    return await response.json();
+    const response = await Api.get<ImageDetailProps>(
+      `${process.env.MY_SERVER}/api/uploaded-images/${id}`
+    );
+    return response.data;
   } catch (error) {
-    console.log(error);
-    return {};
+    return;
   }
 };
 
 export default async function Id({ params }: { params: { id: string } }) {
-  const images = await getData(params.id);
-  return <ImageDetail {...images}></ImageDetail>;
+  const image = await getData(params.id);
+  if (image) {
+    return <ImageDetail {...image}></ImageDetail>;
+  }
+  return <div>no image!!</div>;
 }
